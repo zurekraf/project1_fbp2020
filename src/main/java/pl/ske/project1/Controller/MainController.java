@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import pl.ske.project1.entity.Product;
@@ -119,16 +122,7 @@ public class MainController {
         List<Product> productsListNormal = productsList.
                 stream().map(EntityModel::getContent).collect(Collectors.toList());
         //productsListNormal.forEach(System.out::println);
-
-        List<Link> l = productsList.get(0).getLinks().toList();
-        System.out.println(l);
-        System.out.println(l.get(0).getName());
-        System.out.println(l.get(0).getHref());
-        System.out.println(l.get(0).getRel());
-        System.out.println(l.get(0).getTitle());
-
-
-
+        
         model.addAttribute("products", productsList);
 
 //        Product x = newList.get(0).getContent();
@@ -136,10 +130,16 @@ public class MainController {
 //        System.out.println(z.get(0).);
 
 
+//        return "testPage";
+        return "lol";
+    }
 
+    @PostMapping("/secondtest")
+    public String secondTest(@RequestParam("username") String username) {
 
+        System.out.println(username);
 
-        return "testPage";
+        return "redirect:/index";
     }
 
 }

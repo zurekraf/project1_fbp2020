@@ -45,10 +45,24 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 //        List<GrantedAuthority> grantedAuths = AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
         //
 
+        System.out.println("!!!!!!!!!");
+
         try {
-            ApplicationUser creds = new ObjectMapper().readValue(req.getInputStream(), ApplicationUser.class);
+            ApplicationUser creds = null;
+            if(req.getParameter("username") != null && req.getParameter("password") != null) {
+                //____________
+                System.out.println("z parametrami");
+                //____________
+                creds = new ApplicationUser();
+                creds.setUsername(req.getParameter("username"));
+                creds.setPassword(req.getParameter("password"));
+            } else {
+                //______________
+                System.out.println("jsoon");
+                //____________
+                creds = new ObjectMapper().readValue(req.getInputStream(), ApplicationUser.class);
+            }
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword(), new ArrayList<>()));
-//            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword(), grantedAuths));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -57,6 +71,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException, ServletException {
 
+        //___________________________________________________
+        System.out.println("POPRAWNA AUTENTYKACJA");
+        //___________________________________________________
 
         String token = JWT.create()
                 .withSubject(((User) auth.getPrincipal()).getUsername())
