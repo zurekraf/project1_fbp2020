@@ -1,6 +1,4 @@
 package pl.ske.project1.entity;
-
-
 import javax.persistence.*;
 import java.util.Set;
 

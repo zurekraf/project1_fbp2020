@@ -26,12 +26,11 @@ public class SecondCustomFilter extends BasicAuthenticationFilter {
         header = request.getHeader(HEADER_STRING);
         if (header == null) {
             Cookie c = WebUtils.getCookie(request, "Authorization");
-            assert c != null;
-            header = c.getValue();
-            mutableRequest.putHeader(c.getName(), c.getValue());
+            if(c != null) {
+                header = c.getValue();
+                mutableRequest.putHeader(c.getName(), c.getValue());
+            }
         }
-
         chain.doFilter(mutableRequest, response);
-        //super.doFilterInternal(request, response, chain);
     }
 }

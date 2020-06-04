@@ -29,24 +29,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (applicationUser == null) {
             throw new UsernameNotFoundException(username);
         }
-
         /*
         loadUserByUsername wykonuje się TYLKO przy logowaniu, więc jeśli
         nie pakujemy roles do klucza, to chyba nie ma po co tutaj pobierać jego roli -> (funkcja getAuthority)
+
+        System.out.println(getAuthority(applicationUser));
+        return new User(applicationUser.getUsername(), applicationUser.getPassword(), getAuthority(applicationUser));
          */
-
-//        System.out.println("______________loadUserByUsername___________________________");
-//        System.out.println(getAuthority(applicationUser));
-
-//        return new User(applicationUser.getUsername(), applicationUser.getPassword(), getAuthority(applicationUser));
         return new User(applicationUser.getUsername(), applicationUser.getPassword(), emptyList());
     }
-
-//    private Set getAuthority(ApplicationUser user) {
-//        Set authorities = new HashSet<>();
-//        user.getRoles().forEach(role -> {
-//            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
-//        });
-//        return authorities;
-//    }
+    /*
+    private Set getAuthority(ApplicationUser user) {
+        Set authorities = new HashSet<>();
+        user.getRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+        });
+        return authorities;
+    }
+     */
 }

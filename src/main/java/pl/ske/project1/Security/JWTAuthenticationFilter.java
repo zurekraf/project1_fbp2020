@@ -36,30 +36,22 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.authenticationManager = authenticationManager;
     }
 
-
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
-
-        //
-//        String roles = ("ADMIN");
-//        List<GrantedAuthority> grantedAuths = AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
-        //
-
-        System.out.println("!!!!!!!!!");
+        /*
+        String roles = ("ADMIN");
+        List<GrantedAuthority> grantedAuths = AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
+         */
 
         try {
             ApplicationUser creds = null;
             if(req.getParameter("username") != null && req.getParameter("password") != null) {
-                //____________
-                System.out.println("z parametrami");
-                //____________
+                //username+password jako parametry -> post z form
                 creds = new ApplicationUser();
                 creds.setUsername(req.getParameter("username"));
                 creds.setPassword(req.getParameter("password"));
             } else {
-                //______________
-                System.out.println("jsoon");
-                //____________
+                //username+password jako json
                 creds = new ObjectMapper().readValue(req.getInputStream(), ApplicationUser.class);
             }
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword(), new ArrayList<>()));
@@ -70,22 +62,22 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException, ServletException {
+        /*
+        token zwracany w odpowiedzi na poprawny /login
+        i tutaj do response dodawane jest cookie
 
-        //___________________________________________________
-        System.out.println("POPRAWNA AUTENTYKACJA");
-        //___________________________________________________
+        tutaj też dodaje się role do tokenu:
+        .withClaim("roles", "ADMIN, USER, TEST")
+         */
 
         String token = JWT.create()
                 .withSubject(((User) auth.getPrincipal()).getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME)) //.withClaim("roles", "ADMIN, USER")
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
-        //to jest dodawane do odpowiedzi na /login
-        //res.addHeader("lol", "alamakota");
-//        Cookie cookie1 = new Cookie("access_token", token);
+
         Cookie cookie1 = new Cookie("Authorization", TOKEN_PREFIX+token);
         cookie1.setMaxAge(24 * 60 * 60);
         res.addCookie(cookie1);
     }
-
 }

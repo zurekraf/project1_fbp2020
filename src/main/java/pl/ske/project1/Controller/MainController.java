@@ -40,9 +40,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class MainController {
 
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-
-
-
     @GetMapping("/index")
     public String test(Model model) {
 
@@ -50,8 +47,6 @@ public class MainController {
         RestTemplate restTemplate = new RestTemplate();
 
         Link link1 = linkTo(methodOn(ProductController.class).getAllProducts()).withSelfRel();
-
-                //builder z default cookie
 
 //        WebClient.Builder builder = WebClient.builder(); //to do beana można wyrzucić
 //        Product[] products = builder.build()
@@ -63,26 +58,6 @@ public class MainController {
         //mono to takie promise w javie bo to asynchronicznie idzie
         //block czeka aż mono do nas wróci. Czyli takie blokowanie.
 
-
-//        //to chyba najdalej
-//        WebClient.Builder builder = WebClient.builder(); //to do beana można wyrzucić
-//        List<Product> test11 = (List<Product>) builder.build()
-//                .get() //albo .post
-//                .uri(link1.toUri())
-//                .retrieve()
-//                .bodyToFlux(List.class);
-
-
-
-        //test11.subscribe(System.out::println);
-
-//        List<Product> test22 = test11.collectList().block();
-//        test22.forEach(System.out::println);
-//        System.out.println(test22.size());
-//        System.out.println(test22.get(0).getName());
-
-//                .bodyToFlux(Product[].class)
-//                .collectList();
 
 
 
@@ -112,12 +87,7 @@ public class MainController {
         CollectionModel<EntityModel<Product>> resProducts = tb.toObject(typeReference);
         Collection<EntityModel<Product>> products = resProducts.getContent();
 
-//        Links lol = resProducts.getLinks();
-//        System.out.println(lol);
-
         ArrayList<EntityModel<Product>> productsList = new ArrayList<>(products);
-        //productsList.forEach(System.out::println);
-
 
         List<Product> productsListNormal = productsList.
                 stream().map(EntityModel::getContent).collect(Collectors.toList());
@@ -125,21 +95,6 @@ public class MainController {
         
         model.addAttribute("products", productsList);
 
-//        Product x = newList.get(0).getContent();
-//        List<Link> z = newList.get(0).getLinks().toList();
-//        System.out.println(z.get(0).);
-
-
-//        return "testPage";
-        return "lol";
+        return "testPage";
     }
-
-    @PostMapping("/secondtest")
-    public String secondTest(@RequestParam("username") String username) {
-
-        System.out.println(username);
-
-        return "redirect:/index";
-    }
-
 }

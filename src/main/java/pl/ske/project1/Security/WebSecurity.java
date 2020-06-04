@@ -34,7 +34,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         this.userService = userService;
     }
 
-    //funkcja dla działającego /login
+    //zmiana /login z authentication żeby wbudowany spring security /login działał
     public JWTAuthenticationFilter getJWTAuthenticationFilter() throws Exception {
         final JWTAuthenticationFilter filter = new JWTAuthenticationFilter(authenticationManager());
         filter.setFilterProcessesUrl("/api/login");
@@ -51,19 +51,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
 //                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilterBefore(new SecondCustomFilter(authenticationManager()), SecondCustomFilter.class) //teraz
+                .addFilterBefore(new SecondCustomFilter(authenticationManager()), SecondCustomFilter.class)
                 .addFilter(getJWTAuthenticationFilter())
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), userService))
-                //.addFilterAfter(new JWTAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)//ja
                 // this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()//teraz dodane
+                .and()
                 .formLogin()
                 .loginProcessingUrl("/api/login")
+                .defaultSuccessUrl("/index", true)
                 .permitAll();
-//                .loginPage("/login")
-//                .permitAll();
-
     }
 
     @Override
@@ -77,11 +74,4 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
     }
-
-//    @Bean
-//    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> cookieProcessorCustomizer() {
-//        return (serverFactory) -> serverFactory.addContextCustomizers(
-//                (context) -> context.setCookieProcessor(new LegacyCookieProcessor()));
-//    }
-
 }

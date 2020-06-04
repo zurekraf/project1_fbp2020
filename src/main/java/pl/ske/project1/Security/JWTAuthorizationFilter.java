@@ -49,28 +49,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         String header = null;
         header = req.getHeader(HEADER_STRING);
-        if (header == null) {
-            Cookie c = WebUtils.getCookie(req, "Authorization");
-            assert c != null;
-            header = c.getValue();
-        }
-
-//        String header = req.getHeader(HEADER_STRING);
-//
-//        //_______________________
-//        System.out.println("___funkcja do filter internal_____");
-//        Cookie c = WebUtils.getCookie(req, "Authorization");
-//        //______________________
 
         if (header == null || !header.startsWith(TOKEN_PREFIX)) {
             chain.doFilter(req, res);
-            //___________________________
-//            System.out.println("header authentication jest null lub nie zaczyna się od token_prefix i nas zabija");
-//            if(c != null) {
-//                System.out.println("zawartość cookie Authorization");
-//                System.out.println(c.getValue());
-//            }
-            //___________________________
             return;
         }
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
@@ -81,28 +62,20 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
 
-        //______________________
-        if(token != null) {
-            System.out.println("token header Authorization NIE jest NULL");
-        } else {
-            System.out.println("token header Authorization JEST NULL");
-        }
-        //______________________
-
         if (token != null) {
             // parse the token.
             String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
                     .build()
                     .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject(); //można też getClaims jeśli są w tokenie
-
-//            String roles = ("ADMIN");
-//            List<GrantedAuthority> grantedAuths = AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
+                    .getSubject();
+            /*
+            //może być też .getClaims jeśli są w tokenie
+            String roles = ("ADMIN");
+            List<GrantedAuthority> grantedAuths = AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
+             */
 
             if (user != null) {
-
                 ApplicationUser applicationUser = userService.getByUsername(user);
-
                 List<GrantedAuthority> grantedAuths = new ArrayList<>();
 
                 if(applicationUser.getRoles() != null) {
@@ -111,8 +84,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                         grantedAuths.add(new SimpleGrantedAuthority(role.getName()));
                     });
                 }
-
-                //return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
                 return new UsernamePasswordAuthenticationToken(user, null, grantedAuths);
             }
             return null;
