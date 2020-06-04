@@ -47,21 +47,29 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        String header = req.getHeader(HEADER_STRING);
+        String header = null;
+        header = req.getHeader(HEADER_STRING);
+        if (header == null) {
+            Cookie c = WebUtils.getCookie(req, "Authorization");
+            assert c != null;
+            header = c.getValue();
+        }
 
-        //_______________________
-        System.out.println("___funkcja do filter internal_____");
-        Cookie c = WebUtils.getCookie(req, "Authorization");
-        //______________________
+//        String header = req.getHeader(HEADER_STRING);
+//
+//        //_______________________
+//        System.out.println("___funkcja do filter internal_____");
+//        Cookie c = WebUtils.getCookie(req, "Authorization");
+//        //______________________
 
         if (header == null || !header.startsWith(TOKEN_PREFIX)) {
             chain.doFilter(req, res);
             //___________________________
-            System.out.println("header authentication jest null lub nie zaczyna się od token_prefix i nas zabija");
-            if(c != null) {
-                System.out.println("zawartość cookie Authorization");
-                System.out.println(c.getValue());
-            }
+//            System.out.println("header authentication jest null lub nie zaczyna się od token_prefix i nas zabija");
+//            if(c != null) {
+//                System.out.println("zawartość cookie Authorization");
+//                System.out.println(c.getValue());
+//            }
             //___________________________
             return;
         }

@@ -57,6 +57,7 @@ public class ProductController {
         return CollectionModel.of(products, selfLink);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @GetMapping(value = "/{id}", produces = "application/hal+json")
     public EntityModel<Product> getProductById(@PathVariable Long id) {
 

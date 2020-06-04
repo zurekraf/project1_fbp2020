@@ -51,6 +51,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
 //                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilterBefore(new SecondCustomFilter(authenticationManager()), SecondCustomFilter.class) //teraz
                 .addFilter(getJWTAuthenticationFilter())
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), userService))
                 //.addFilterAfter(new JWTAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)//ja
