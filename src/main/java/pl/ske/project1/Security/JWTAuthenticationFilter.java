@@ -82,7 +82,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
         //to jest dodawane do odpowiedzi na /login
         //res.addHeader("lol", "alamakota");
-        Cookie cookie1 = new Cookie("access_token", token);
+//        Cookie cookie1 = new Cookie("access_token", token);
+        Cookie cookie1 = new Cookie("Authorization", TOKEN_PREFIX+token);
+        cookie1.setMaxAge(24 * 60 * 60);
         res.addCookie(cookie1);
     }
 

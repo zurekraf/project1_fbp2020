@@ -21,6 +21,7 @@ import pl.ske.project1.service.UserService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,6 +29,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import org.springframework.web.util.WebUtils;
 
 import static pl.ske.project1.Security.SecurityConstants.HEADER_STRING;
 import static pl.ske.project1.Security.SecurityConstants.SECRET;
@@ -46,8 +49,20 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         String header = req.getHeader(HEADER_STRING);
 
+        //_______________________
+        System.out.println("___funkcja do filter internal_____");
+        Cookie c = WebUtils.getCookie(req, "Authorization");
+        //______________________
+
         if (header == null || !header.startsWith(TOKEN_PREFIX)) {
             chain.doFilter(req, res);
+            //___________________________
+            System.out.println("header authentication jest null lub nie zaczyna się od token_prefix i nas zabija");
+            if(c != null) {
+                System.out.println("zawartość cookie Authorization");
+                System.out.println(c.getValue());
+            }
+            //___________________________
             return;
         }
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
@@ -57,6 +72,15 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     }
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
+
+        //______________________
+        if(token != null) {
+            System.out.println("token header Authorization NIE jest NULL");
+        } else {
+            System.out.println("token header Authorization JEST NULL");
+        }
+        //______________________
+
         if (token != null) {
             // parse the token.
             String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
