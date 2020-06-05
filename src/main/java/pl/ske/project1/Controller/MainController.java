@@ -1,20 +1,25 @@
 package pl.ske.project1.Controller;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.tomcat.util.http.parser.Authorization;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.hateoas.*;
 import org.springframework.hateoas.client.Traverson;
 import org.springframework.hateoas.server.core.TypeReferences;
 import org.springframework.hateoas.server.core.TypeReferences.CollectionModelType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+import pl.ske.project1.entity.ApplicationUser;
 import pl.ske.project1.entity.Product;
 
 import java.net.URI;
@@ -24,6 +29,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import pl.ske.project1.repository.ApplicationUserRepository;
 import pl.ske.project1.restservice.ProductController;
 import pl.ske.project1.restservice.ProductController.*;
 import reactor.core.publisher.Flux;
@@ -38,6 +44,19 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Controller
 public class MainController {
+
+//    @Autowired
+//    ApplicationUserRepository applicationUserRepository;
+
+//    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+//    @GetMapping("/supertest")
+//    //@PostAuthorize("#username == authentication.principal.username")
+//    public void idtest(Authentication authentication) {
+//
+//        System.out.println(authentication.getName());
+//
+//
+//    }
 
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     @GetMapping("/index")
@@ -94,6 +113,7 @@ public class MainController {
         //productsListNormal.forEach(System.out::println);
         
         model.addAttribute("products", productsList);
+
 
         return "testPage";
     }

@@ -8,7 +8,9 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import pl.ske.project1.HATEOAS.ProductModelAssembler;
@@ -34,6 +36,22 @@ public class ProductController {
     private UserService userService;
     @Autowired
     private ProductModelAssembler productModelAssembler;
+
+    //________________
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @PostAuthorize("hasPermission(#id, 'getOrder')")
+    @GetMapping(value = "test/{id}", produces = "application/hal+json")
+    public EntityModel<Product> gettest(@PathVariable Long id, Authentication authentication) {
+
+        //System.out.println(authentication.getDetails());
+        System.out.println("działa!!!");
+
+
+        Optional<Product> product = productService.findById(id);
+
+        return productModelAssembler.toModel(product.get());
+    }
+    //________________
 
 //    @GetMapping(value = "/all", produces = "application/json")
 //    public ResponseEntity<List<Product>> getAllProducts() {

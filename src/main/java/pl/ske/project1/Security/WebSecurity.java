@@ -22,7 +22,7 @@ import pl.ske.project1.service.IUserService;
 import static pl.ske.project1.Security.SecurityConstants.SIGN_UP_URL;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true) //!!!!!!!!!!!!!!!!!!!!!!!!!!
+//@EnableGlobalMethodSecurity(prePostEnabled = true) //!!!!!!!!!!!!!!!!!!!!!!!!!!
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     private UserDetailsServiceImpl userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -40,6 +40,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         filter.setFilterProcessesUrl("/api/login");
         return filter;
     }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -74,4 +75,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
     }
+
+
 }
