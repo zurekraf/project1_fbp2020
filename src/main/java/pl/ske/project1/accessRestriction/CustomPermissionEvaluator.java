@@ -23,11 +23,11 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         System.out.println("z custom permission evaluator");
 
         SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ADMIN");
-        if(auth.getAuthorities().contains(roleAdmin)) {
-            System.out.println("TO admin");
-        } else {
-            System.out.println("to nie jest admin");
-        }
+//        if(auth.getAuthorities().contains(roleAdmin)) {
+//            System.out.println("TO admin");
+//        } else {
+//            System.out.println("to nie jest admin");
+//        }
 
         //___________
         //System.out.println(auth.getName());
@@ -46,16 +46,9 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
                 return false;
             }
         }
+        //tu można też sprawdzać inne permissionStr
         return false;
 
-
-
-//        Long lol = 1L;
-
-//        if(permissionStr.equals("getOrder")) {
-//            return lol.equals(targetId);
-//        }
-//        return false;
     }
 
     @Override

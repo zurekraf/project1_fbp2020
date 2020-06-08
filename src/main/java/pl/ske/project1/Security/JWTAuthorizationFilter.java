@@ -84,6 +84,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                         grantedAuths.add(new SimpleGrantedAuthority(role.getName()));
                     });
                 }
+                //_____
+
+                //_____
                 return new UsernamePasswordAuthenticationToken(user, null, grantedAuths);
             }
             return null;
