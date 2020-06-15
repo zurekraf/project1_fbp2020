@@ -9,9 +9,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Service;
+import pl.ske.project1.User.MyUser;
 import pl.ske.project1.entity.ApplicationUser;
 import pl.ske.project1.entity.Role;
 import pl.ske.project1.repository.ApplicationUserRepository;
@@ -47,6 +49,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+        System.out.println("AUTHORIZATION_FILTER_DO_FILTER_INTERNAL");
         String header = null;
         header = req.getHeader(HEADER_STRING);
 
@@ -68,6 +71,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                     .build()
                     .verify(token.replace(TOKEN_PREFIX, ""))
                     .getSubject();
+
             /*
             //może być też .getClaims jeśli są w tokenie
             String roles = ("ADMIN");
@@ -84,10 +88,17 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                         grantedAuths.add(new SimpleGrantedAuthority(role.getName()));
                     });
                 }
-                //_____
+//                //_____
+//                UserDetails userDetails = new UserDetails()
+                ApplicationUser usr = userService.getByUsername(user);
+                UsernamePasswordAuthenticationToken u = new UsernamePasswordAuthenticationToken(usr, null, grantedAuths);
+//                u.setDetails();
+//                //_____
 
-                //_____
+                //loooooooooooooooooooool credential to jest wczesniej password
+
                 return new UsernamePasswordAuthenticationToken(user, null, grantedAuths);
+                //return new UsernamePasswordAuthenticationToken(usr, null, grantedAuths);
             }
             return null;
         }

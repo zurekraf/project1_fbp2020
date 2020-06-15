@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import pl.ske.project1.User.MyUser;
 import pl.ske.project1.repository.ApplicationUserRepository;
 import pl.ske.project1.service.UserService;
 

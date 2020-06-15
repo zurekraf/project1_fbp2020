@@ -12,13 +12,17 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.parameters.P;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import pl.ske.project1.HATEOAS.ProductModelAssembler;
+import pl.ske.project1.User.MyUser;
+import pl.ske.project1.entity.ApplicationUser;
 import pl.ske.project1.entity.Product;
 import pl.ske.project1.service.ProductService;
 import pl.ske.project1.service.UserService;
 
 import javax.swing.text.html.Option;
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -41,10 +45,15 @@ public class ProductController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @PostAuthorize("hasPermission(#id, 'getOrder')")
     @GetMapping(value = "test/{id}", produces = "application/hal+json")
-    public EntityModel<Product> gettest(@PathVariable Long id, Authentication authentication) {
+    public EntityModel<Product> gettest(@PathVariable Long id, Authentication authentication, Principal principal) {
 
         //System.out.println(authentication.getDetails());
         System.out.println("działa!!!");
+        //System.out.println(authentication.getDetails().getClass());
+        System.out.println(authentication.getPrincipal().getClass());
+        //ApplicationUser mu = (ApplicationUser) authentication.getPrincipal();
+        User u = (User) authentication.getPrincipal();
+
 
 
         Optional<Product> product = productService.findById(id);

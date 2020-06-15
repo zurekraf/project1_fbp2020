@@ -11,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import pl.ske.project1.User.MyUser;
 import pl.ske.project1.entity.ApplicationUser;
 
 import javax.servlet.FilterChain;
@@ -38,6 +39,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
+
+        //WYKONUJE SIĘ TYLKO PRZY LOGOWANIU
+
         /*
         String roles = ("ADMIN");
         List<GrantedAuthority> grantedAuths = AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
@@ -61,6 +65,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        System.out.println("unsuccesfullAuthentication");
+        //to można wywalić bo to standardowe override i nic tu nie zmieniam
+        super.unsuccessfulAuthentication(request, response, failed);
+    }
+
+    @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException, ServletException {
         /*
         token zwracany w odpowiedzi na poprawny /login
@@ -69,6 +80,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         tutaj też dodaje się role do tokenu:
         .withClaim("roles", "ADMIN, USER, TEST")
          */
+
+        //_________
+        //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOoo
+        ((MyUser) auth.getPrincipal()).getTest();
+        //_________
 
         String token = JWT.create()
                 .withSubject(((User) auth.getPrincipal()).getUsername())
