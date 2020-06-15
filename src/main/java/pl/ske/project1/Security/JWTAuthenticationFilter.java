@@ -11,7 +11,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import pl.ske.project1.User.MyUser;
 import pl.ske.project1.entity.ApplicationUser;
 
 import javax.servlet.FilterChain;
@@ -41,7 +40,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
 
         //WYKONUJE SIĘ TYLKO PRZY LOGOWANIU
-
         /*
         String roles = ("ADMIN");
         List<GrantedAuthority> grantedAuths = AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
@@ -83,7 +81,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         //_________
         //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOoo
-        ((MyUser) auth.getPrincipal()).getTest();
+//        ((MyUser) auth.getPrincipal()).getTest();
         //_________
 
         String token = JWT.create()

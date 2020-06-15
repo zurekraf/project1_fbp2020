@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Service;
-import pl.ske.project1.User.MyUser;
 import pl.ske.project1.entity.ApplicationUser;
 import pl.ske.project1.entity.Role;
 import pl.ske.project1.repository.ApplicationUserRepository;

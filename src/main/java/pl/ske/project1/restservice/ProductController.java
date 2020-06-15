@@ -15,7 +15,6 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import pl.ske.project1.HATEOAS.ProductModelAssembler;
-import pl.ske.project1.User.MyUser;
 import pl.ske.project1.entity.ApplicationUser;
 import pl.ske.project1.entity.Product;
 import pl.ske.project1.service.ProductService;
