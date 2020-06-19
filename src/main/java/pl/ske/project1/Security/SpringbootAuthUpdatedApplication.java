@@ -1,6 +1,7 @@
 package pl.ske.project1.Security;
 
 import org.apache.tomcat.util.http.LegacyCookieProcessor;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -23,5 +24,11 @@ public class SpringbootAuthUpdatedApplication {
                 tomcat.addContextCustomizers(context -> context.setCookieProcessor(new LegacyCookieProcessor()));
             }
         };
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper;
     }
 }

@@ -51,7 +51,7 @@ public class ProductController {
         //System.out.println(authentication.getDetails().getClass());
         System.out.println(authentication.getPrincipal().getClass());
         //ApplicationUser mu = (ApplicationUser) authentication.getPrincipal();
-        User u = (User) authentication.getPrincipal();
+        //User u = (User) authentication.getPrincipal();
 
 
 

@@ -93,5 +93,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         Cookie cookie1 = new Cookie("Authorization", TOKEN_PREFIX+token);
         cookie1.setMaxAge(24 * 60 * 60);
         res.addCookie(cookie1);
+
+        res.sendRedirect("/index");
     }
 }

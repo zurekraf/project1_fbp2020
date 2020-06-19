@@ -21,6 +21,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
     public boolean hasPermission(Authentication auth, Object targetDomainObject, Object permission) {
 
         System.out.println("z custom permission evaluator");
+        System.out.println(auth.getPrincipal());
 
         SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ADMIN");
 //        if(auth.getAuthorities().contains(roleAdmin)) {

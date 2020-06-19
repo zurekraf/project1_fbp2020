@@ -19,3 +19,15 @@ INSERT INTO user_roles (user_id, role_id) VALUES
 (1, 2),
 (2, 2),
 (3, 3);
+
+INSERT INTO defender (first_name, last_name, id_number) VALUES
+("Ala", "Makota", 111),
+("Kot", "Maala", 222);
+
+INSERT INTO accused (first_name, last_name, age) VALUES
+("Ernest", "Evilman", 33),
+("Rupert", "Rupertovic", 34);
+
+INSERT INTO court_case (case_code, accused_id, defender_id) VALUES
+("99A", 1, 1),
+("99B", 2, 2);

@@ -1,6 +1,7 @@
 package pl.ske.project1.Security;
 
 import org.apache.tomcat.util.http.LegacyCookieProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.http.HttpMethod;
@@ -49,6 +50,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .antMatchers(HttpMethod.GET, "/index").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/products/all").permitAll()
+                .antMatchers(HttpMethod.GET,"/defenders/**").permitAll() //now
+                .antMatchers(HttpMethod.GET,"/cases/**").permitAll() //now
                 .anyRequest().authenticated()
                 .and()
 //                .addFilter(new JWTAuthenticationFilter(authenticationManager()))

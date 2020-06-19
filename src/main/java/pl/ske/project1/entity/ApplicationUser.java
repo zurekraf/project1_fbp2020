@@ -17,6 +17,8 @@ public class ApplicationUser {
             inverseJoinColumns = @JoinColumn(name="ROLE_ID")
     )
     private Set<Role> roles;
+    @OneToOne(mappedBy = "applicationUser")
+    private Defender defender;
 
     public Set<Role> getRoles() {
         return roles;
