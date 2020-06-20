@@ -3,19 +3,15 @@ package pl.ske.project1.HATEOAS;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 import pl.ske.project1.DTO.DefenderDTO;
-import pl.ske.project1.entity.Charge;
 import pl.ske.project1.entity.Defender;
-import pl.ske.project1.restservice.ChargeController;
 import pl.ske.project1.restservice.DefenderController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -34,12 +30,6 @@ public class DefenderModelAssembler implements RepresentationModelAssembler<Defe
         defenderDTO.add(selfLink, allLink);
 
         return defenderDTO;
-
-//        EntityModel<DefenderDTO> defenderDTOEntityModel = EntityModel.of(defenderDTO);
-//        Link selfLink = linkTo(methodOn(DefenderController.class).getDefenderById(defenderDTO.getId())).withSelfRel();
-//        Link allLink = linkTo(methodOn(DefenderController.class).getAllDefenders()).withRel("allDefenders");
-//        defenderDTOEntityModel.add(selfLink, allLink);
-//        return defenderDTOEntityModel;
     }
 
     @Override
@@ -55,12 +45,5 @@ public class DefenderModelAssembler implements RepresentationModelAssembler<Defe
         }
         Link selfLink = linkTo(methodOn(DefenderController.class).getAllDefenders()).withSelfRel();
         return CollectionModel.of(defenderDTOS, selfLink);
-
-//        List<DefenderDTO> defendersList = (List<DefenderDTO>) entities;
-//        List<EntityModel<DefenderDTO>> defenderEML = defendersList.stream().map(this::toModel).collect(Collectors.toList());
-//
-//        Link selfLink = linkTo(methodOn(DefenderController.class).getAllDefenders()).withSelfRel();
-//
-//        return CollectionModel.of(defenderEML, selfLink);
     }
 }

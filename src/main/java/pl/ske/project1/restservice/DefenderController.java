@@ -48,10 +48,6 @@ public class DefenderController {
         return defenderModelAssembler.toCollectionModel(defenderList);
     }
 
-
-
-
-
 //    @GetMapping(value = "", produces = "application/hal+json")
 //    public CollectionModel<EntityModel<DefenderDTO>> getAllDefenders {
 //        List<Defender> defenderList = defenderService.findall();

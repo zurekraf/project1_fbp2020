@@ -11,7 +11,7 @@ public class Hearing {
     private java.sql.Timestamp hearingDate;
     private String courtroom;
     private boolean isPublic;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "courtcase_id", nullable = false)
     private CourtCase courtcase;
 

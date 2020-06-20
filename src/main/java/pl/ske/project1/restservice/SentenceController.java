@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.ske.project1.HATEOAS.AccusedModelAssembler;
 import pl.ske.project1.HATEOAS.ChargeModelAssembler;
-import pl.ske.project1.entity.Accused;
-import pl.ske.project1.entity.Charge;
-import pl.ske.project1.entity.CourtCase;
-import pl.ske.project1.entity.Product;
+import pl.ske.project1.HATEOAS.SentenceModelAssembler;
+import pl.ske.project1.entity.*;
 import pl.ske.project1.service.AccusedService;
 import pl.ske.project1.service.ChargeService;
 import pl.ske.project1.service.CourtCaseService;
+import pl.ske.project1.service.SentenceService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,31 +28,23 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/api/charges")
-public class ChargeController {
+@RequestMapping("/api/sentences")
+public class SentenceController {
     @Autowired
-    private ChargeService chargeService;
+    private SentenceService sentenceService;
     @Autowired
-    private ChargeModelAssembler chargeModelAssembler;
+    private SentenceModelAssembler sentenceModelAssembler;
 
     @GetMapping(value = "", produces = "application/hal+json")
-    public CollectionModel<EntityModel<Charge>> getAllCharges() {
-        List<Charge> chargesList = chargeService.findall();
-        return chargeModelAssembler.toCollectionModel(chargesList);
+    public CollectionModel<EntityModel<Sentence>> getAllSentences() {
+        List<Sentence> sentencesList = sentenceService.findall();
+        return sentenceModelAssembler.toCollectionModel(sentencesList);
     }
-//    @GetMapping(value = "", produces = "application/hal+json")
-//    public CollectionModel<EntityModel<Charge>> getAllCharges() {
-//        List<Charge> chargesList = chargeService.findall();
-//        List<EntityModel<Charge>> chargeEML = chargesList.stream().map(chargeModelAssembler::toModel).collect(Collectors.toList());
-//        Link selfLink = linkTo(methodOn(ChargeController.class).getAllCharges()).withSelfRel();
-//
-//        return CollectionModel.of(chargeEML, selfLink);
-//    }
 
     @GetMapping(value = "/{id}", produces = "application/hal+json")
-    public EntityModel<Charge> getChargeById(@PathVariable Long id) {
-        Optional<Charge> charge = chargeService.findById(id);
-        return chargeModelAssembler.toModel(charge.get());
+    public EntityModel<Sentence> getSentenceById(@PathVariable Long id) {
+        Optional<Sentence> sentence = sentenceService.findById(id);
+        return sentenceModelAssembler.toModel(sentence.get());
     }
 
 }

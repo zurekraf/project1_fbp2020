@@ -35,3 +35,18 @@ INSERT INTO court_case (case_code, accused_id, defender_id) VALUES
 INSERT INTO charge (title, sub_title) VALUES
 ("Arson", "Arson of occupied property"),
 ("Conspiracy", "Conspiracy for theft");
+
+INSERT INTO courtcase_charges (courtcase_id, charge_id) VALUES
+(1, 1),
+(1, 2),
+(2, 1);
+
+INSERT INTO sentence (description, possibility_of_parole, time_frame) VALUES
+("Severe punishment for felony", false, 10.0);
+
+INSERT INTO hearing (courtroom, is_public, hearing_date, courtcase_id) VALUES
+("12B", true, '2011-12-18 13:17:17', 1),
+("12B", true, '2012-12-18 13:17:17', 1),
+("12A", true, '2013-12-18 13:17:17', 1),
+("9H", false, '2011-12-18 13:17:17', 2);
+
