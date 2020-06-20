@@ -10,4 +10,5 @@ public class HearingDTO extends RepresentationModel<HearingDTO> {
     private java.sql.Timestamp hearingDate;
     private boolean isPublic;
     private long courtcaseId;
+    private String courtcaseCaseCode;
 }

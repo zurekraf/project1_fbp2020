@@ -25,4 +25,8 @@ public class SentenceService {
         return sentenceRepository.findById(sentenceId);
     }
 
+    public Sentence createSentence(Sentence newSentence) {
+        return sentenceRepository.save(newSentence);
+    }
+
 }

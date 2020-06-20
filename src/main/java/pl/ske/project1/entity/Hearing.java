@@ -1,5 +1,7 @@
 package pl.ske.project1.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -8,6 +10,7 @@ public class Hearing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private java.sql.Timestamp hearingDate;
     private String courtroom;
     private boolean isPublic;

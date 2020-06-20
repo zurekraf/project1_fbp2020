@@ -94,7 +94,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         cookie1.setMaxAge(24 * 60 * 60);
         res.addCookie(cookie1);
 
-        res.sendRedirect("/index");
+        //res.sendRedirect("/index2");
 
 //        String referer = req.getHeader("referer");
 //        res.sendRedirect(referer);

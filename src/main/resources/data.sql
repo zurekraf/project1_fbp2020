@@ -41,12 +41,27 @@ INSERT INTO courtcase_charges (courtcase_id, charge_id) VALUES
 (1, 2),
 (2, 1);
 
-INSERT INTO sentence (description, possibility_of_parole, time_frame) VALUES
-("Severe punishment for felony", false, 10.0);
+-- INSERT INTO sentence (description, possibility_of_parole, time_frame) VALUES
+-- ("Severe punishment for felony", false, 10.0);
 
 INSERT INTO hearing (courtroom, is_public, hearing_date, courtcase_id) VALUES
 ("12B", true, '2011-12-18 13:17:17', 1),
 ("12B", true, '2012-12-18 13:17:17', 1),
 ("12A", true, '2013-12-18 13:17:17', 1),
 ("9H", false, '2011-12-18 13:17:17', 2);
+
+INSERT INTO application_user (password, username) VALUES
+("$2a$10$NA2Lb9ogoVc8g0CgptA1d.iX7g.P4VRbsnXc/mpCHavby6tD1tvUO", "judge1"),
+("$2a$10$Gzref6k2CTGYqEnHc5JBzOHUnB1oZ95dqaCr62ZNhVXKaWE0le7GK", "prosecutor1"),
+("$2a$10$wGbTK6JYrPvBA.4muizUzeZbqiddHybjRGNS6KqcvNs3TIwWbe5vG", "defender1");
+
+INSERT INTO role (name) VALUES
+("JUDGE"),
+("PROSECUTOR"),
+("DEFENDER");
+
+INSERT INTO user_roles (user_id, role_id) VALUES
+(4, 4),
+(5, 5),
+(6, 6);
 

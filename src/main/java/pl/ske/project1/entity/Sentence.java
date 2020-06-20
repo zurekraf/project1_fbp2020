@@ -1,5 +1,7 @@
 package pl.ske.project1.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class Sentence {
     private String description;
     private boolean possibilityOfParole;
     @OneToOne(mappedBy = "sentence")
+    @JsonBackReference
     private CourtCase courtCase;
 
     public long getId() {

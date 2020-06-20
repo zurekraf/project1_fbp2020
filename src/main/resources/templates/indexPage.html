@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p>HELLO TEST</p>
+
+<form action="#" th:action="/mark" method="post">
+    <label>
+        <input th:type="submit" value="teeest" />
+    </label>
+</form>
+
+<!--<tr th:each="product: ${products}" >-->
+<!--    &lt;!&ndash;    <td th:text="${product.getName()}"> <br /> </td>&ndash;&gt;-->
+<!--    <td th:text="${product.getContent().toString()}"></td>-->
+<!--    <td th:each="link: ${product.getLinks().toList()}"><a th:href="${link.getHref()}" th:text="${link.getRel()}"></a> </td>-->
+<!--    <br>-->
+<!--    &lt;!&ndash;    <p th:text="${product.getLinks()}"&ndash;&gt;-->
+<!--</tr>-->
+
+</body>
+</html>

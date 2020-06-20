@@ -65,22 +65,22 @@ public class MainController {
     @GetMapping("/index2")
     public String test22(Model model) {
 
-        String uri = "http://localhost:8080/api/defenders";
-        Traverson traverson = new Traverson(URI.create(uri), MediaTypes.HAL_JSON);
-        Traverson.TraversalBuilder tb = traverson.follow("href");
-
-        ParameterizedTypeReference<CollectionModel<DefenderDTO>> typeReference = new ParameterizedTypeReference<CollectionModel<DefenderDTO>>() {};
-        CollectionModel<DefenderDTO> resDefenders = tb.toObject(typeReference);
-        Collection<DefenderDTO> defenders = resDefenders.getContent();
-
-        ArrayList<DefenderDTO> defendersList = new ArrayList<>(defenders);
-
-        defendersList.forEach(System.out::println);
-
-        for(DefenderDTO x : defendersList) {
-            System.out.println(x);
-            System.out.println(x.getLinks());
-        }
+//        String uri = "http://localhost:8080/api/defenders";
+//        Traverson traverson = new Traverson(URI.create(uri), MediaTypes.HAL_JSON);
+//        Traverson.TraversalBuilder tb = traverson.follow("href");
+//
+//        ParameterizedTypeReference<CollectionModel<DefenderDTO>> typeReference = new ParameterizedTypeReference<CollectionModel<DefenderDTO>>() {};
+//        CollectionModel<DefenderDTO> resDefenders = tb.toObject(typeReference);
+//        Collection<DefenderDTO> defenders = resDefenders.getContent();
+//
+//        ArrayList<DefenderDTO> defendersList = new ArrayList<>(defenders);
+//
+//        defendersList.forEach(System.out::println);
+//
+//        for(DefenderDTO x : defendersList) {
+//            System.out.println(x);
+//            System.out.println(x.getLinks());
+//        }
 
         return "testPage";
     }

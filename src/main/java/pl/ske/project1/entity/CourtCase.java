@@ -32,6 +32,12 @@ public class CourtCase {
     @JoinColumn(name = "defender_id", nullable = true) //zmienione z false
     private Defender defender;
 
+    public CourtCase() {
+    }
+    public CourtCase(Long id) {
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }
