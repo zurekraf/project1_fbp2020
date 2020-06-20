@@ -69,11 +69,6 @@ public class ProductController {
     @GetMapping(value = "/all", produces = "application/hal+json")
     public CollectionModel<EntityModel<Product>> getAllProducts() {
 
-//        List<EntityModel<Product>> products = productService.findall().stream().map(product ->
-//                EntityModel.of(product, linkTo(methodOn(ProductController.class).getProductById(product.getId())).withSelfRel(),
-//                                        linkTo(methodOn(ProductController.class).getAllProducts()).withRel("products")))
-//                .collect(Collectors.toList());
-//        return CollectionModel.of(products, linkTo(methodOn(ProductController.class).getAllProducts()).withSelfRel());
         List<EntityModel<Product>> products = productService.findall().stream()
                 .map(productModelAssembler::toModel)
                 .collect(Collectors.toList());

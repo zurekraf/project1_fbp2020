@@ -20,9 +20,9 @@ INSERT INTO user_roles (user_id, role_id) VALUES
 (2, 2),
 (3, 3);
 
-INSERT INTO defender (first_name, last_name, id_number) VALUES
-("Ala", "Makota", 111),
-("Kot", "Maala", 222);
+INSERT INTO defender (first_name, last_name, id_number, phone_number, office_address) VALUES
+("Ala", "Makota", 111, "7444488", "15Av 12B"),
+("Kot", "Maala", 222, "7444477", "12Av 11F");
 
 INSERT INTO accused (first_name, last_name, age) VALUES
 ("Ernest", "Evilman", 33),
@@ -31,3 +31,7 @@ INSERT INTO accused (first_name, last_name, age) VALUES
 INSERT INTO court_case (case_code, accused_id, defender_id) VALUES
 ("99A", 1, 1),
 ("99B", 2, 2);
+
+INSERT INTO charge (title, sub_title) VALUES
+("Arson", "Arson of occupied property"),
+("Conspiracy", "Conspiracy for theft");

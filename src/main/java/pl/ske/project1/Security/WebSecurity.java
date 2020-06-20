@@ -48,11 +48,19 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
-                .antMatchers(HttpMethod.GET, "/index").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/products/all").permitAll()
-                .antMatchers(HttpMethod.GET,"/defenders/**").permitAll() //now
-                .antMatchers(HttpMethod.GET,"/cases/**").permitAll() //now
-                .anyRequest().authenticated()
+//                .antMatchers(HttpMethod.GET, "/index").permitAll()
+//                .antMatchers(HttpMethod.GET, "/index2").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/products/all").permitAll()
+//                .antMatchers(HttpMethod.GET,"/api/defenders/*").permitAll() //now
+//                .antMatchers(HttpMethod.GET,"/api/defenders").permitAll() //now
+//                .antMatchers(HttpMethod.GET,"/cases/**").permitAll() //now
+//                .antMatchers(HttpMethod.GET,"/charges/**").permitAll() //test
+//                .antMatchers(HttpMethod.GET,"/api/charges").permitAll() //test
+//                .antMatchers(HttpMethod.GET,"/charges/").permitAll() //test
+//                .antMatchers(HttpMethod.GET,"api/charges/").permitAll() //test
+//                .antMatchers(HttpMethod.GET,"api/charges/**").permitAll() //test
+//                .antMatchers(HttpMethod.GET,"api/charges/*").permitAll() //test
+                //.anyRequest().authenticated()
                 .and()
 //                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilterBefore(new SecondCustomFilter(authenticationManager()), SecondCustomFilter.class)

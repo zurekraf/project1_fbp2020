@@ -19,7 +19,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+import pl.ske.project1.DTO.DefenderDTO;
 import pl.ske.project1.entity.ApplicationUser;
+import pl.ske.project1.entity.Charge;
 import pl.ske.project1.entity.Product;
 
 import java.net.URI;
@@ -59,6 +61,31 @@ public class MainController {
 //    }
 
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+    //@PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @GetMapping("/index2")
+    public String test22(Model model) {
+
+        String uri = "http://localhost:8080/api/defenders";
+        Traverson traverson = new Traverson(URI.create(uri), MediaTypes.HAL_JSON);
+        Traverson.TraversalBuilder tb = traverson.follow("href");
+
+        ParameterizedTypeReference<CollectionModel<DefenderDTO>> typeReference = new ParameterizedTypeReference<CollectionModel<DefenderDTO>>() {};
+        CollectionModel<DefenderDTO> resDefenders = tb.toObject(typeReference);
+        Collection<DefenderDTO> defenders = resDefenders.getContent();
+
+        ArrayList<DefenderDTO> defendersList = new ArrayList<>(defenders);
+
+        defendersList.forEach(System.out::println);
+
+        for(DefenderDTO x : defendersList) {
+            System.out.println(x);
+            System.out.println(x.getLinks());
+        }
+
+        return "testPage";
+    }
+
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     @GetMapping("/index")
     public String test(Model model) {
 
@@ -78,15 +105,10 @@ public class MainController {
         //block czeka aż mono do nas wróci. Czyli takie blokowanie.
 
 
-
-
-
         //ResponseEntity<Product[]> response = restTemplate.getForEntity(uri, Product[].class);
 //        Product[] response = restTemplate.getForObject(uri, Product[].class);
 
 //        response = restTemplate.getForObject(uri, EntityModel<>);
-
-
 
         //Product[] products = response.getBody();
 //

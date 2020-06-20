@@ -1,6 +1,8 @@
 package pl.ske.project1.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,6 +15,8 @@ public class Defender {
     private String firstName;
     private String lastName;
     private int IdNumber;
+    private String phoneNumber;
+    private String officeAddress;
     @OneToMany(mappedBy = "defender", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference
     private Set<CourtCase> cases;
@@ -66,5 +70,21 @@ public class Defender {
 
     public void setApplicationUser(ApplicationUser applicationUser) {
         this.applicationUser = applicationUser;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getOfficeAddress() {
+        return officeAddress;
+    }
+
+    public void setOfficeAddress(String officeAddress) {
+        this.officeAddress = officeAddress;
     }
 }

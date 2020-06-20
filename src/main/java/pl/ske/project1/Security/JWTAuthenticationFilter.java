@@ -95,5 +95,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         res.addCookie(cookie1);
 
         res.sendRedirect("/index");
+
+//        String referer = req.getHeader("referer");
+//        res.sendRedirect(referer);
     }
 }
