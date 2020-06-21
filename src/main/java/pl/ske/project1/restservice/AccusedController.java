@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.ske.project1.HATEOAS.AccusedModelAssembler;
 import pl.ske.project1.entity.Accused;
 import pl.ske.project1.entity.CourtCase;
-import pl.ske.project1.entity.Product;
 import pl.ske.project1.service.AccusedService;
 import pl.ske.project1.service.CourtCaseService;
 

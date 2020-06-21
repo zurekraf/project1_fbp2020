@@ -5,9 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pl.ske.project1.entity.CourtCase;
 import pl.ske.project1.entity.Defender;
-import pl.ske.project1.entity.Product;
 import pl.ske.project1.repository.DefenderRepository;
-import pl.ske.project1.repository.ProductRepository;
 
 import java.util.List;
 import java.util.Map;

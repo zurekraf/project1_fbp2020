@@ -17,7 +17,6 @@ import pl.ske.project1.entity.ApplicationUser;
 import pl.ske.project1.entity.Role;
 import pl.ske.project1.repository.ApplicationUserRepository;
 import pl.ske.project1.service.IUserService;
-import pl.ske.project1.service.ProductService;
 import pl.ske.project1.service.UserService;
 
 import javax.servlet.FilterChain;

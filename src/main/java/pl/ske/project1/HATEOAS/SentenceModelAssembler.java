@@ -7,11 +7,9 @@ import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 import pl.ske.project1.entity.Accused;
 import pl.ske.project1.entity.Charge;
-import pl.ske.project1.entity.Product;
 import pl.ske.project1.entity.Sentence;
 import pl.ske.project1.restservice.AccusedController;
 import pl.ske.project1.restservice.ChargeController;
-import pl.ske.project1.restservice.ProductController;
 import pl.ske.project1.restservice.SentenceController;
 
 import java.util.List;

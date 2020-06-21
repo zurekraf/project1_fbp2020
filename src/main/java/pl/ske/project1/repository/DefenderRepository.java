@@ -4,7 +4,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.repository.CrudRepository;
 import pl.ske.project1.entity.Defender;
-import pl.ske.project1.entity.Product;
 
 import java.util.List;
 

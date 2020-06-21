@@ -1,8 +1,3 @@
-INSERT INTO product (name, price ) VALUES
-("ala", 44),
-("makota", 33),
-("kot", 22),
-("maala", 11);
 
 INSERT INTO application_user (password, username) VALUES
 ("$2a$04$SrnKUTXBAre7Awf8dX098elHmeciAr21yR8aXj6yMY8LbX/HptTbS", "admin"),

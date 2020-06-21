@@ -22,7 +22,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import pl.ske.project1.DTO.DefenderDTO;
 import pl.ske.project1.entity.ApplicationUser;
 import pl.ske.project1.entity.Charge;
-import pl.ske.project1.entity.Product;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -32,8 +31,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import pl.ske.project1.repository.ApplicationUserRepository;
-import pl.ske.project1.restservice.ProductController;
-import pl.ske.project1.restservice.ProductController.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -85,6 +82,8 @@ public class MainController {
         return "testPage";
     }
 
+
+    /*
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     @GetMapping("/index")
     public String test(Model model) {
@@ -139,4 +138,6 @@ public class MainController {
 
         return "testPage";
     }
+
+     */
 }

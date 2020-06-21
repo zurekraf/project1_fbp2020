@@ -13,7 +13,7 @@ import pl.ske.project1.service.UserService;
 public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 
     @Autowired
-    UserService userService; //teraz
+    UserService userService;
 
     @Override
     protected MethodSecurityExpressionHandler createExpressionHandler() {

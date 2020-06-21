@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.ske.project1.entity.ApplicationUser;
 import pl.ske.project1.repository.ApplicationUserRepository;
-import pl.ske.project1.repository.CartRepository;
 
 import java.util.HashSet;
 import java.util.Set;
