@@ -91,7 +91,7 @@ public class CourtCaseController {
 
     @PreAuthorize("hasAnyAuthority('PROSECUTOR')") //zmienić na prosecutor!!!!!
     @DeleteMapping("/{caseId}/charges/{chargeId}")
-    public void deleteProduct(@PathVariable Long caseId, @PathVariable Long chargeId) {
+    public void deleteCharge(@PathVariable Long caseId, @PathVariable Long chargeId) {
         courtCaseService.deleteChargeById(caseId, chargeId);
 //        productService.deleteById(id);
     }
@@ -108,19 +108,35 @@ public class CourtCaseController {
     @PreAuthorize("hasAnyAuthority('JUDGE')")
     @PutMapping("/{caseId}/sentence")
     public CourtCaseDTO sentencing(@RequestBody Sentence sentence, @PathVariable Long caseId) {
+
+        System.out.println("SENTENCING");
+
         CourtCase courtCase = courtCaseService.sentencing(caseId, sentence);
         return courtCaseModelAssembler.toModel(courtCase);
     }
 
+    //tylko prosecutor i judge
+    @PostMapping("")
+    public CourtCaseDTO addCourtCase(@RequestBody CourtCase courtCase) {
+
+        CourtCase newCourtCase = courtCaseService.createCourtCase(courtCase);
+
+        return courtCaseModelAssembler.toModel(newCourtCase);
+    }
+
+    //tylko prosecutor
+    @PatchMapping("/{caseId}/charges")
+    public Charge addCharge(@RequestBody Charge charge, @PathVariable Long caseId) {
+
+        //_____________
+        System.out.println(charge.getId());
+        System.out.println(charge.getTitle());
+        //_____________
+
+        return courtCaseService.addCharge(caseId, charge);
+    }
 
 
-
-    //z produktu
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Product> replaceProduct(@RequestBody Product product, @PathVariable Long id) {
-//        Optional<Product> replacedProduct = productService.replaceProduct(product, id);
-//        return ResponseEntity.of(replacedProduct);
-//    }
 
 //    @PreAuthorize("hasAnyAuthority('JUDGE')")
 //    @PostMapping("/{id}/hearings")

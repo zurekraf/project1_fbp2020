@@ -15,6 +15,12 @@ public class Charge {
     //można dodać zwrotne many-to-many do case
 
 
+    public Charge() {
+    }
+    public Charge(Long id) {
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }

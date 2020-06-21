@@ -5,10 +5,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pl.ske.project1.entity.Charge;
 import pl.ske.project1.entity.CourtCase;
-import pl.ske.project1.entity.Product;
 import pl.ske.project1.entity.Sentence;
 import pl.ske.project1.repository.CourtCaseRepository;
-import pl.ske.project1.repository.ProductRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +38,23 @@ public class CourtCaseService {
         courtCaseRepository.save(courtCase.get());
 
         //productRepository.deleteById(productId);
+    }
+
+    public Charge addCharge(Long courtCaseId, Charge newCharge) {
+        //Charge charge = chargeService.createCharge(newCharge);
+//        Optional<CourtCase> courtCase = courtCaseRepository.findById(courtCaseId);
+//        courtCase.get().getCharges().add(newCharge);
+//        courtCaseRepository.save(courtCase.get());
+        Optional<Charge> charge = chargeService.findById(newCharge.getId());
+        Optional<CourtCase> courtCase = courtCaseRepository.findById(courtCaseId);
+        courtCase.get().getCharges().add(charge.get());
+        courtCaseRepository.save(courtCase.get());
+
+        return newCharge;
+    }
+
+    public CourtCase createCourtCase(CourtCase newCourtCase) {
+        return courtCaseRepository.save(newCourtCase);
     }
 
     public CourtCase sentencing(Long courtCaseId, Sentence sentence) {

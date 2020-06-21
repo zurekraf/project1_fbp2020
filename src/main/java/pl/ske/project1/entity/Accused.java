@@ -17,6 +17,13 @@ public class Accused {
     @JsonBackReference
     private Set<CourtCase> cases;
 
+    public Accused() {
+    }
+
+    public Accused(Long id) {
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }

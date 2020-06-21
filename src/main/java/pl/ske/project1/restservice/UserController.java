@@ -17,7 +17,7 @@ public class UserController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     //tylko dla admina
-    @GetMapping("/")
+    @GetMapping("")
     public List<ApplicationUser> getUsers() {
         List<ApplicationUser> userList = applicationUserRepository.findAll();
         return userList;

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pl.ske.project1.entity.Charge;
 import pl.ske.project1.entity.Defender;
+import pl.ske.project1.entity.Hearing;
 import pl.ske.project1.repository.ChargeRepository;
 import pl.ske.project1.repository.DefenderRepository;
 
@@ -23,5 +24,9 @@ public class ChargeService {
 
     public Optional<Charge> findById(Long chargeId) {
         return chargeRepository.findById(chargeId);
+    }
+
+    public Charge createCharge(Charge newCharge) {
+        return chargeRepository.save(newCharge);
     }
 }

@@ -12,6 +12,7 @@ import pl.ske.project1.entity.CourtCase;
 import pl.ske.project1.entity.Defender;
 import pl.ske.project1.restservice.CourtCaseController;
 import pl.ske.project1.restservice.DefenderController;
+import pl.ske.project1.restservice.SentenceController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +34,17 @@ public class CourtCaseModelAssembler implements RepresentationModelAssembler<Cou
         Link chargesLink = linkTo(methodOn(CourtCaseController.class).getCaseCharges(courtCaseDTO.getId())).withRel("caseCharges");
         Link hearingsLink = linkTo(methodOn(CourtCaseController.class).getCaseHearings(courtCaseDTO.getId())).withRel("caseHearings");
 
+
         //______________________________________
 //        if(courtCaseDTO.g)
         //______________________________________
 
         courtCaseDTO.add(selfLink, allLink, chargesLink, hearingsLink);
+
+        if(courtCase.getSentence() != null) {
+            Link sentenceLink = linkTo(methodOn(CourtCaseController.class).getCaseSentence(courtCaseDTO.getSentenceId())).withRel("caseSentence");
+            courtCaseDTO.add(sentenceLink);
+        }
 
         return courtCaseDTO;
     }

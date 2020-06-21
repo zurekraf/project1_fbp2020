@@ -39,7 +39,6 @@
 			<version>2.3.0.RELEASE</version>
 		</dependency>
 
-
 		<!--		nowe-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -77,6 +77,7 @@ public class ProductController {
         return CollectionModel.of(products, selfLink);
     }
 
+
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @GetMapping(value = "/{id}", produces = "application/hal+json")
     public EntityModel<Product> getProductById(@PathVariable Long id) {
@@ -92,6 +93,8 @@ public class ProductController {
         return productModelAssembler.toModel(product.get());
 
     }
+
+
 
 //    @GetMapping(value = "/{id}", produces = "application/json")
 //    public ResponseEntity<Product> getProductById(@PathVariable Long id) {

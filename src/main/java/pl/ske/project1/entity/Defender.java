@@ -1,6 +1,7 @@
 package pl.ske.project1.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -26,8 +27,15 @@ public class Defender {
 //    private ApplicationUser applicationUser;
     @OneToOne
     @JoinColumn(name = "applicationuser_id")
-    @JsonBackReference
+    //@JsonBackReference
+    @JsonIgnore
     private ApplicationUser applicationUser;
+
+    public Defender() {
+    }
+    public Defender(Long id) {
+        this.id = id;
+    }
 
     public long getId() {
         return id;
