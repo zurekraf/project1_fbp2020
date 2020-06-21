@@ -106,7 +106,7 @@ public class CourtCaseController {
     }
 
     @PreAuthorize("hasAnyAuthority('JUDGE')")
-    @PostMapping("/{caseId}/sentence")
+    @PutMapping("/{caseId}/sentence")
     public CourtCaseDTO sentencing(@RequestBody Sentence sentence, @PathVariable Long caseId) {
         CourtCase courtCase = courtCaseService.sentencing(caseId, sentence);
         return courtCaseModelAssembler.toModel(courtCase);

@@ -20,9 +20,9 @@ INSERT INTO user_roles (user_id, role_id) VALUES
 (2, 2),
 (3, 3);
 
-INSERT INTO defender (first_name, last_name, id_number, phone_number, office_address) VALUES
-("Ala", "Makota", 111, "7444488", "15Av 12B"),
-("Kot", "Maala", 222, "7444477", "12Av 11F");
+INSERT INTO defender (first_name, last_name, id_number, phone_number, office_address, applicationuser_id) VALUES
+("Ala", "Makota", 111, "7444488", "15Av 12B", null),
+("Kot", "Maala", 222, "7444477", "12Av 11F", 3);
 
 INSERT INTO accused (first_name, last_name, age) VALUES
 ("Ernest", "Evilman", 33),

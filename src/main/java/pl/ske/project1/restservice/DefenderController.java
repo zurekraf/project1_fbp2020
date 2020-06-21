@@ -1,24 +1,18 @@
 package pl.ske.project1.restservice;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.ske.project1.DTO.DefenderDTO;
 import pl.ske.project1.HATEOAS.DefenderModelAssembler;
-import pl.ske.project1.entity.Charge;
+import pl.ske.project1.entity.ApplicationUser;
 import pl.ske.project1.entity.Defender;
 import pl.ske.project1.service.DefenderService;
-import pl.ske.project1.service.ProductService;
+import pl.ske.project1.service.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -28,6 +22,8 @@ public class DefenderController {
     private DefenderService defenderService;
     @Autowired
     private DefenderModelAssembler defenderModelAssembler;
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value = "/{id}", produces = "application/hal+json")
     public DefenderDTO getDefenderById(@PathVariable Long id) {
@@ -47,6 +43,29 @@ public class DefenderController {
         List<Defender> defenderList = defenderService.findall();
         return defenderModelAssembler.toCollectionModel(defenderList);
     }
+
+    // tylko dla admina
+    @PutMapping(value = "/{defenderId}/user")
+    public Defender replaceUserAccount(@RequestBody ApplicationUser applicationUser, @PathVariable Long defenderId) {
+        Optional<Defender> defender = defenderService.findById(defenderId);
+        defender.get().setApplicationUser(applicationUser);
+        return defenderService.createDefender(defender.get());
+    }
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<Defender> updateDefender(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
+        Optional<Defender> updatedDefender = defenderService.updateDefender(updates, id);
+        return ResponseEntity.of(updatedDefender);
+    }
+
+    /*
+    @PatchMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
+        Optional<Product> updatedProduct = productService.updateProduct(updates, id);
+        return ResponseEntity.of(updatedProduct);
+    }
+     */
 
 //    @GetMapping(value = "", produces = "application/hal+json")
 //    public CollectionModel<EntityModel<DefenderDTO>> getAllDefenders {

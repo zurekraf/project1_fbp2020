@@ -1,4 +1,6 @@
 package pl.ske.project1.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -9,6 +11,7 @@ public class ApplicationUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
+    @JsonIgnore // żeby endpoint dla admina nie wyświetlał hasła
     private String password;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -17,8 +20,17 @@ public class ApplicationUser {
             inverseJoinColumns = @JoinColumn(name="ROLE_ID")
     )
     private Set<Role> roles;
+//    @OneToOne(mappedBy = "applicationUser")
+//    private Defender defender;
     @OneToOne(mappedBy = "applicationUser")
     private Defender defender;
+
+    public ApplicationUser() {
+    }
+
+    public ApplicationUser(Long id) {
+        this.id = id;
+    }
 
     public Set<Role> getRoles() {
         return roles;

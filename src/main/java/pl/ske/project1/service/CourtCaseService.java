@@ -43,10 +43,35 @@ public class CourtCaseService {
     }
 
     public CourtCase sentencing(Long courtCaseId, Sentence sentence) {
-        Sentence newSentence = sentenceService.createSentence(sentence);
+//        Sentence newSentence = sentenceService.createSentence(sentence);
+//        Optional<CourtCase> courtCase = courtCaseRepository.findById(courtCaseId);
+//        courtCase.get().setSentence(newSentence);
+//        return courtCaseRepository.save(courtCase.get());
         Optional<CourtCase> courtCase = courtCaseRepository.findById(courtCaseId);
-        courtCase.get().setSentence(newSentence);
+        if(courtCase.get().getSentence() == null) {
+            courtCase.get().setSentence(sentence);
+        } else {
+            Optional<Sentence> currentSentence = sentenceService.findById(courtCase.get().getSentence().getId());
+            currentSentence.get().setDescription(sentence.getDescription());
+            currentSentence.get().setPossibilityOfParole(sentence.isPossibilityOfParole());
+            currentSentence.get().setTimeFrame(sentence.getTimeFrame());
+            sentenceService.createSentence(currentSentence.get());
+        }
         return courtCaseRepository.save(courtCase.get());
     }
+
+    /*
+    public Optional<Hearing> replaceHearing(Hearing newHearing, Long hearingId) {
+        return hearingRepository.findById(hearingId).map(hearing -> {
+            //pierwszy to ten wyciągnięty z repo, 2gi to ten nowy
+            hearing.setCourtcase(newHearing.getCourtcase());
+            hearing.setCourtroom(newHearing.getCourtroom());
+            hearing.setHearingDate(newHearing.getHearingDate());
+            hearing.setPublic(newHearing.isPublic());
+
+            return hearingRepository.save(hearing); //popodmienialiśmy i zapisujemy go na nowo
+        });
+    }
+     */
 
 }

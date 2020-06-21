@@ -25,9 +25,11 @@ public class CourtCase {
     @OneToMany(mappedBy = "courtcase", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference
     private Set<Hearing> hearings;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sentence_id", referencedColumnName = "id")
     private Sentence sentence;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "defender_id", nullable = true) //zmienione z false
     private Defender defender;

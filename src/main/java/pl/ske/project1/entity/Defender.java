@@ -20,8 +20,12 @@ public class Defender {
     @OneToMany(mappedBy = "defender", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference
     private Set<CourtCase> cases;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "applicationuser_id", referencedColumnName = "id")
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "applicationuser_id", referencedColumnName = "id")
+//    private ApplicationUser applicationUser;
+    @OneToOne
+    @JoinColumn(name = "applicationuser_id")
     private ApplicationUser applicationUser;
 
     public long getId() {
