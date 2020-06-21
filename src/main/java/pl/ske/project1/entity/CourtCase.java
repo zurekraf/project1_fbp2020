@@ -10,11 +10,12 @@ public class CourtCase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    //private String type;
     private String caseCode;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "accused_id", nullable = false) //zmienione z false
+    @JoinColumn(name = "accused_id", nullable = false)
     private Accused accused;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name="COURTCASE_CHARGES",
@@ -22,6 +23,7 @@ public class CourtCase {
             inverseJoinColumns = @JoinColumn(name="CHARGE_ID")
     )
     private Set<Charge> charges;
+
     @OneToMany(mappedBy = "courtcase", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference
     private Set<Hearing> hearings;

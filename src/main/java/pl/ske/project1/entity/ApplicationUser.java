@@ -11,7 +11,7 @@ public class ApplicationUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
-    //@JsonIgnore // żeby endpoint dla admina nie wyświetlał hasła / jednak nie po wtety i przy postach (logowanie) wywala
+    //@JsonIgnore
     private String password;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -20,8 +20,6 @@ public class ApplicationUser {
             inverseJoinColumns = @JoinColumn(name="ROLE_ID")
     )
     private Set<Role> roles;
-//    @OneToOne(mappedBy = "applicationUser")
-//    private Defender defender;
     @OneToOne(mappedBy = "applicationUser")
     private Defender defender;
 

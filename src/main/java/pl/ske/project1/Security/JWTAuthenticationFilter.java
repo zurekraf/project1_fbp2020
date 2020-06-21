@@ -55,13 +55,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             } else {
                 //username+password jako json
                 creds = new ObjectMapper().readValue(req.getInputStream(), ApplicationUser.class);
-
-                //___
-                ApplicationUser apu = (ApplicationUser) creds;
-                System.out.println(apu.getId());
-                System.out.println(apu.getUsername());
-                System.out.println(apu.getPassword());
-                //___
             }
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword(), new ArrayList<>()));
         } catch (IOException e) {
@@ -72,7 +65,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         System.out.println("unsuccesfullAuthentication");
-        //to można wywalić bo to standardowe override i nic tu nie zmieniam
+        //standardowy override bez żadnych zmian - można usunąc
+
         super.unsuccessfulAuthentication(request, response, failed);
     }
 
@@ -80,20 +74,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException, ServletException {
         /*
         token zwracany w odpowiedzi na poprawny /login
-        i tutaj do response dodawane jest cookie
-
-        tutaj też dodaje się role do tokenu:
+        + do response dodawane jest cookie
+        + do ewentualnie do tokenu można dodać role:
         .withClaim("roles", "ADMIN, USER, TEST")
          */
-
-        //_________
-        //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOoo
-//        ((MyUser) auth.getPrincipal()).getTest();
-        //_________
-
-        //_____
-        System.out.println("SuccesfullAuthentication");
-        //_____
 
         String token = JWT.create()
                 .withSubject(((User) auth.getPrincipal()).getUsername())
@@ -105,9 +89,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         cookie1.setMaxAge(24 * 60 * 60);
         res.addCookie(cookie1);
 
-        //res.sendRedirect("/index2");
-
-//        String referer = req.getHeader("referer");
-//        res.sendRedirect(referer);
+        /*
+        String referer = req.getHeader("referer");
+        res.sendRedirect("/index2");
+         */
     }
 }

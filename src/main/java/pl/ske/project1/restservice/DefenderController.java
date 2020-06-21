@@ -23,21 +23,12 @@ public class DefenderController {
     private DefenderService defenderService;
     @Autowired
     private DefenderModelAssembler defenderModelAssembler;
-    @Autowired
-    private UserService userService;
 
     @GetMapping(value = "/{id}", produces = "application/hal+json")
     public DefenderDTO getDefenderById(@PathVariable Long id) {
         Optional<Defender> defender = defenderService.findById(id);
         return defenderModelAssembler.toModel(defender.get());
     }
-
-//    @GetMapping(value = "/{id}", produces = "application/hal+json")
-//    public EntityModel<DefenderDTO> getDefenderById(@PathVariable Long id) {
-//        Optional<Defender> defender = defenderService.findById(id);
-//        DefenderDTO defenderDTO = modelMapper.map(defender.get(), DefenderDTO.class);
-//        return defenderModelAssembler.toModel(defenderDTO);
-//    }
 
     @GetMapping(value = "", produces = "application/hal+json")
     public CollectionModel<DefenderDTO> getAllDefenders() {
@@ -53,26 +44,10 @@ public class DefenderController {
         return defenderService.createDefender(defender.get());
     }
 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     @PostAuthorize("hasPermission(#id, 'updateDefender')")
     @PatchMapping(value = "/{id}")
     public ResponseEntity<Defender> updateDefender(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
         Optional<Defender> updatedDefender = defenderService.updateDefender(updates, id);
         return ResponseEntity.of(updatedDefender);
     }
-
-    /*
-    @PatchMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
-        Optional<Product> updatedProduct = productService.updateProduct(updates, id);
-        return ResponseEntity.of(updatedProduct);
-    }
-     */
-
-//    @GetMapping(value = "", produces = "application/hal+json")
-//    public CollectionModel<EntityModel<DefenderDTO>> getAllDefenders {
-//        List<Defender> defenderList = defenderService.findall();
-//        List<DefenderDTO> defenderDTOList = modelMapper.map(defenderList, List<DefenderDTO.class>.class);
-//    }
-
 }

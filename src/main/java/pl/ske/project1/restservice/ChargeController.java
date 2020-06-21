@@ -3,7 +3,6 @@ package pl.ske.project1.restservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +13,6 @@ import pl.ske.project1.service.ChargeService;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("/api/charges")
@@ -36,10 +33,4 @@ public class ChargeController {
         Optional<Charge> charge = chargeService.findById(id);
         return chargeModelAssembler.toModel(charge.get());
     }
-//    @GetMapping(value = "/{id}", produces = "application/json")
-//    public ResponseEntity<Charge> getChargeById(@PathVariable Long id) {
-//        Optional<Charge> charge = chargeService.findById(id);
-//        return ResponseEntity.of(charge);
-//    }
-
 }

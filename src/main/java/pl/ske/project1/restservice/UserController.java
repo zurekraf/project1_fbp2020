@@ -31,14 +31,9 @@ public class UserController {
         ApplicationUser u = null;
         u = applicationUserRepository.findByUsername(user.getUsername());
         if(u == null) {
-            //userInfoRepository.save(user.getInfo()); //
-//            if(user.getInfo() == null) {
-//                System.out.println("info null");
-//            }
-
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             applicationUserRepository.save(user);
         }
-
+        //else - taki user już istnieje - zwrócić odpowiedni kod
     }
 }

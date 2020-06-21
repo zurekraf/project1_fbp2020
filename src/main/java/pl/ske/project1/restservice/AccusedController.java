@@ -3,16 +3,16 @@ package pl.ske.project1.restservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.ske.project1.DTO.CourtCaseDTO;
 import pl.ske.project1.HATEOAS.AccusedModelAssembler;
+import pl.ske.project1.HATEOAS.CourtCaseModelAssembler;
 import pl.ske.project1.entity.Accused;
 import pl.ske.project1.entity.CourtCase;
 import pl.ske.project1.service.AccusedService;
-import pl.ske.project1.service.CourtCaseService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +25,9 @@ public class AccusedController {
     private AccusedService accusedService;
     @Autowired
     private AccusedModelAssembler accusedModelAssembler;
+    @Autowired
+    private CourtCaseModelAssembler courtCaseModelAssembler;
 
-//    @GetMapping(value = "", produces = "application/json")
-//    public ResponseEntity<List<Accused>> getAllAccused() {
-//        return ResponseEntity.ok(accusedService.findall());
-//    }
-
-//    @GetMapping(value = "/{id}", produces = "application/json")
-//    public ResponseEntity<Accused> getAccusedById(@PathVariable Long id) {
-//        Optional<Accused> accused = accusedService.findById(id);
-//        return ResponseEntity.ok(accused.get()); //poleci 500 jeśli podamy id którego nie ma
-//    }
     @GetMapping(value = "/{id}", produces = "application/hal+json")
     public EntityModel<Accused> getAccusedById(@PathVariable Long id) {
         Optional<Accused> accused = accusedService.findById(id);
@@ -48,12 +40,10 @@ public class AccusedController {
         return accusedModelAssembler.toCollectionModel(accusedList);
     }
 
-    //_____________to nie jest hateoas!!_______
     @GetMapping(value = "/{id}/cases", produces = "application/json")
-    public ResponseEntity<List<CourtCase>> getAccusedCases(@PathVariable Long id) {
+    public CollectionModel<CourtCaseDTO> getAccusedCases(@PathVariable Long id) {
         Optional<Accused> accused = accusedService.findById(id);
         List<CourtCase> courtCaseList = new ArrayList<>(accused.get().getCases());
-        return ResponseEntity.ok(courtCaseList);
+        return courtCaseModelAssembler.toCollectionModel(courtCaseList);
     }
-    //_____________
 }

@@ -36,15 +36,9 @@ public class CourtCaseService {
         courtCase.get().getCharges().remove(charge.get());
 
         courtCaseRepository.save(courtCase.get());
-
-        //productRepository.deleteById(productId);
     }
 
     public Charge addCharge(Long courtCaseId, Charge newCharge) {
-        //Charge charge = chargeService.createCharge(newCharge);
-//        Optional<CourtCase> courtCase = courtCaseRepository.findById(courtCaseId);
-//        courtCase.get().getCharges().add(newCharge);
-//        courtCaseRepository.save(courtCase.get());
         Optional<Charge> charge = chargeService.findById(newCharge.getId());
         Optional<CourtCase> courtCase = courtCaseRepository.findById(courtCaseId);
         courtCase.get().getCharges().add(charge.get());
@@ -74,19 +68,4 @@ public class CourtCaseService {
         }
         return courtCaseRepository.save(courtCase.get());
     }
-
-    /*
-    public Optional<Hearing> replaceHearing(Hearing newHearing, Long hearingId) {
-        return hearingRepository.findById(hearingId).map(hearing -> {
-            //pierwszy to ten wyciągnięty z repo, 2gi to ten nowy
-            hearing.setCourtcase(newHearing.getCourtcase());
-            hearing.setCourtroom(newHearing.getCourtroom());
-            hearing.setHearingDate(newHearing.getHearingDate());
-            hearing.setPublic(newHearing.isPublic());
-
-            return hearingRepository.save(hearing); //popodmienialiśmy i zapisujemy go na nowo
-        });
-    }
-     */
-
 }

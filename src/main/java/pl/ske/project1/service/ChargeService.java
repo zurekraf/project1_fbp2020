@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pl.ske.project1.entity.Charge;
-import pl.ske.project1.entity.Defender;
-import pl.ske.project1.entity.Hearing;
 import pl.ske.project1.repository.ChargeRepository;
-import pl.ske.project1.repository.DefenderRepository;
 
 import java.util.List;
 import java.util.Optional;

@@ -17,45 +17,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.WebClient;
-import pl.ske.project1.DTO.DefenderDTO;
-import pl.ske.project1.entity.ApplicationUser;
-import pl.ske.project1.entity.Charge;
-
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import pl.ske.project1.repository.ApplicationUserRepository;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
-import javax.swing.text.html.parser.Entity;
-
-import static java.lang.String.valueOf;
-import static org.springframework.hateoas.client.Hop.rel;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Controller
 public class MainController {
 
-//    @Autowired
-//    ApplicationUserRepository applicationUserRepository;
-
-//    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
-//    @GetMapping("/supertest")
-//    //@PostAuthorize("#username == authentication.principal.username")
-//    public void idtest(Authentication authentication) {
-//
-//        System.out.println(authentication.getName());
-//
-//
-//    }
 
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     //@PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")

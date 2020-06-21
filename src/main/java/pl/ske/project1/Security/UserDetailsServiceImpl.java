@@ -1,7 +1,5 @@
 package pl.ske.project1.Security;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,9 +7,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.ske.project1.entity.ApplicationUser;
 import pl.ske.project1.repository.ApplicationUserRepository;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static java.util.Collections.emptyList;
 
@@ -30,11 +25,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
         /*
-        loadUserByUsername wykonuje się TYLKO przy logowaniu, więc jeśli
-        nie pakujemy roles do klucza, to chyba nie ma po co tutaj pobierać jego roli -> (funkcja getAuthority)
-
-        System.out.println(getAuthority(applicationUser));
-        return new User(applicationUser.getUsername(), applicationUser.getPassword(), getAuthority(applicationUser));
+        loadUserByUsername wykonuje się TYLKO przy logowaniul
+        jeśli w kluczu są role to tu można je pobrać
          */
 
         return new User(applicationUser.getUsername(), applicationUser.getPassword(), emptyList());

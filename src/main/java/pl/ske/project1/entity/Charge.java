@@ -12,8 +12,6 @@ public class Charge {
     private long id;
     private String title;
     private String subTitle;
-    //można dodać zwrotne many-to-many do case
-
 
     public Charge() {
     }

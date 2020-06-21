@@ -45,11 +45,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         this.userService = userService;
     }
 
-
-
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        System.out.println("AUTHORIZATION_FILTER_DO_FILTER_INTERNAL");
+//        System.out.println("AUTHORIZATION_FILTER_DO_FILTER_INTERNAL");
+
         String header = null;
         header = req.getHeader(HEADER_STRING);
 
@@ -73,7 +72,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                     .getSubject();
 
             /*
-            //może być też .getClaims jeśli są w tokenie
+            //.getClaims jeśli są w tokenie
             String roles = ("ADMIN");
             List<GrantedAuthority> grantedAuths = AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
              */
@@ -88,22 +87,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                         grantedAuths.add(new SimpleGrantedAuthority(role.getName()));
                     });
                 }
-//                //_____
-//                UserDetails userDetails = new UserDetails()
-                //ApplicationUser usr = userService.getByUsername(user);
-                //UsernamePasswordAuthenticationToken u = new UsernamePasswordAuthenticationToken(usr, null, grantedAuths);
-//                u.setDetails();
-//                //_____
-
-                //loooooooooooooooooooool credential to jest wczesniej password
-
-//                return new UsernamePasswordAuthenticationToken(user, null, grantedAuths);
                 return new UsernamePasswordAuthenticationToken(applicationUser, null, grantedAuths);
-                //return new UsernamePasswordAuthenticationToken(usr, null, grantedAuths);
             }
             return null;
         }
         return null;
     }
-
 }

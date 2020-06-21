@@ -1,11 +1,9 @@
 package pl.ske.project1.accessRestriction;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import pl.ske.project1.entity.ApplicationUser;
-import pl.ske.project1.repository.ApplicationUserRepository;
 import pl.ske.project1.service.UserService;
 
 import java.io.Serializable;
@@ -21,8 +19,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
     @Override
     public boolean hasPermission(Authentication auth, Object targetDomainObject, Object permission) {
 
-        System.out.println("custom permission evaluator");
-        //System.out.println(auth.getPrincipal());
+        //System.out.println("custom permission evaluator");
 
         SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ADMIN");
 //        if(auth.getAuthorities().contains(roleAdmin)) {
@@ -30,11 +27,6 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
 //        } else {
 //            System.out.println("to nie jest admin");
 //        }
-
-        //___________
-        //System.out.println(auth.getName());
-        //Long userId = userService.getByUsername(auth.getName()).getId();
-        //___________
 
         ApplicationUser applicationUser = (ApplicationUser) auth.getPrincipal();
 
@@ -59,22 +51,14 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
             } else {
                 return false;
             }
-//            Long userDefenderId = applicationUser.getDefender().getId();
-
-            System.out.println("userdefenderId: " + userDefenderId);
-            System.out.println("targetId: " + targetId);
 
             if(userDefenderId.equals(targetId)) {
-                System.out.println("_____ ok_____");
                 return true;
             } else {
-                System.out.println("_____not ok ______");
                 return false;
             }
         }
-        //_____
         return false;
-
     }
 
     @Override

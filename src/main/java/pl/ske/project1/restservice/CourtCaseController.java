@@ -36,8 +36,6 @@ public class CourtCaseController {
     @Autowired
     private HearingService hearingService;
     @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
     private SentenceModelAssembler sentenceModelAssembler;
 
     @PreAuthorize("hasAnyAuthority('JUDGE', 'PROSECUTOR', 'DEFENDER')")
@@ -76,8 +74,6 @@ public class CourtCaseController {
     @PreAuthorize("hasAnyAuthority('JUDGE')")
     @PostMapping("/{id}/hearings")
     public Hearing newHearing(@RequestBody Hearing newHearing) {
-        //przetestować z @PostAttribute Hearing
-
         return hearingService.createHearing(newHearing);
     }
 
@@ -89,11 +85,10 @@ public class CourtCaseController {
         return ResponseEntity.of(replacedProduct);
     }
 
-    @PreAuthorize("hasAnyAuthority('PROSECUTOR')") //zmienić na prosecutor!!!!!
+    @PreAuthorize("hasAnyAuthority('PROSECUTOR')")
     @DeleteMapping("/{caseId}/charges/{chargeId}")
     public void deleteCharge(@PathVariable Long caseId, @PathVariable Long chargeId) {
         courtCaseService.deleteChargeById(caseId, chargeId);
-//        productService.deleteById(id);
     }
 
     //jeszcze nie działa
@@ -109,8 +104,7 @@ public class CourtCaseController {
     @PutMapping("/{caseId}/sentence")
     public CourtCaseDTO sentencing(@RequestBody Sentence sentence, @PathVariable Long caseId) {
 
-        System.out.println("SENTENCING");
-
+        //System.out.println("SENTENCING");
         CourtCase courtCase = courtCaseService.sentencing(caseId, sentence);
         return courtCaseModelAssembler.toModel(courtCase);
     }
@@ -118,9 +112,7 @@ public class CourtCaseController {
     //tylko prosecutor i judge
     @PostMapping("")
     public CourtCaseDTO addCourtCase(@RequestBody CourtCase courtCase) {
-
         CourtCase newCourtCase = courtCaseService.createCourtCase(courtCase);
-
         return courtCaseModelAssembler.toModel(newCourtCase);
     }
 
@@ -135,24 +127,4 @@ public class CourtCaseController {
 
         return courtCaseService.addCharge(caseId, charge);
     }
-
-
-
-//    @PreAuthorize("hasAnyAuthority('JUDGE')")
-//    @PostMapping("/{id}/hearings")
-//    public Hearing newHearing(@RequestBody Hearing newHearing) {
-//        return hearingService.createHearing(newHearing);
-//    }
-
-//    @GetMapping(value = "", produces = "application/json")
-//    public ResponseEntity<List<CourtCase>> getAllCases() {
-//        return ResponseEntity.ok(courtCaseService.findall());
-//    }
-//
-//    @GetMapping(value = "/{id}", produces = "application/json")
-//    public ResponseEntity<CourtCase> getCaseById(@PathVariable Long id) {
-//        Optional<CourtCase> courtCase = courtCaseService.findById(id);
-//
-//        return ResponseEntity.ok(courtCase.get()); //poleci 500 jeśli podamy id którego nie ma
-//    }
 }

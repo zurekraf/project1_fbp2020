@@ -3,7 +3,6 @@ package pl.ske.project1.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import pl.ske.project1.entity.CourtCase;
 import pl.ske.project1.entity.Defender;
 import pl.ske.project1.repository.DefenderRepository;
 
@@ -53,21 +52,4 @@ public class DefenderService {
         }
         return defenderById;
     }
-
-    /*
-    public Optional<Product> updateProduct(Map<String, Object> updates, Long productId) {
-        Optional<Product> productById = productRepository.findById(productId);
-        if(productById.isPresent()) {
-            Product product = productById.get();
-            if(updates.containsKey("name")) {
-                product.setName((String) updates.get("name")); //wyciągamy getem wartośc dla klucza name
-            }
-            if(updates.containsKey("price")) {
-                product.setPrice((Integer) updates.get("price"));
-            }
-            productRepository.save(product);
-        }
-        return productById;
-    }
-     */
 }

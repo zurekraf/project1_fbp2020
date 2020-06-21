@@ -37,7 +37,7 @@ public class HearingService {
             hearing.setHearingDate(newHearing.getHearingDate());
             hearing.setPublic(newHearing.isPublic());
 
-            return hearingRepository.save(hearing); //popodmienialiśmy i zapisujemy go na nowo
+            return hearingRepository.save(hearing); //po podmienieniu obiekt zapisywany jest na nowo
         });
     }
 

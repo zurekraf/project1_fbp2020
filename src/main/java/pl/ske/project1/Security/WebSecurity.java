@@ -36,13 +36,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         this.userService = userService;
     }
 
-    //zmiana /login z authentication żeby wbudowany spring security /login działał
+    //zmiana z /login aby umożliwić działanie wbudowanej strony logowania
     public JWTAuthenticationFilter getJWTAuthenticationFilter() throws Exception {
         final JWTAuthenticationFilter filter = new JWTAuthenticationFilter(authenticationManager());
         filter.setFilterProcessesUrl("/api/login");
         return filter;
     }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -74,7 +73,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/api/login")
                 .defaultSuccessUrl("/index", true)
                 .permitAll();
-//        http.exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint()); //test
+//        http.exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint());
     }
 
     @Override
@@ -88,6 +87,4 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
     }
-
-
 }

@@ -1,7 +1,5 @@
 package pl.ske.project1.repository;
 
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.repository.CrudRepository;
 import pl.ske.project1.entity.Defender;
 

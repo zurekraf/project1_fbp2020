@@ -34,18 +34,12 @@ public class CourtCaseModelAssembler implements RepresentationModelAssembler<Cou
         Link chargesLink = linkTo(methodOn(CourtCaseController.class).getCaseCharges(courtCaseDTO.getId())).withRel("caseCharges");
         Link hearingsLink = linkTo(methodOn(CourtCaseController.class).getCaseHearings(courtCaseDTO.getId())).withRel("caseHearings");
 
-
-        //______________________________________
-//        if(courtCaseDTO.g)
-        //______________________________________
-
         courtCaseDTO.add(selfLink, allLink, chargesLink, hearingsLink);
 
         if(courtCase.getSentence() != null) {
             Link sentenceLink = linkTo(methodOn(CourtCaseController.class).getCaseSentence(courtCaseDTO.getSentenceId())).withRel("caseSentence");
             courtCaseDTO.add(sentenceLink);
         }
-
         return courtCaseDTO;
     }
 
@@ -56,12 +50,6 @@ public class CourtCaseModelAssembler implements RepresentationModelAssembler<Cou
         for(CourtCase courtCase : casesList) {
             CourtCaseDTO courtCaseDTO = this.toModel(courtCase);
             courtCaseDTOS.add(courtCaseDTO);
-//            CourtCaseDTO courtCaseDTO = modelMapper.map(courtCase, CourtCaseDTO.class);
-//            Link selfLink = linkTo(methodOn(CourtCaseController.class).getCaseById(courtCaseDTO.getId())).withSelfRel();
-//            Link allLink = linkTo(methodOn(CourtCaseController.class).getAllCases()).withRel("allCases");
-//            Link chargesLink = linkTo(methodOn(CourtCaseController.class).getCaseCharges(courtCaseDTO.getId())).withRel("caseCharges");
-//            courtCaseDTO.add(selfLink, allLink, chargesLink);
-//            courtCaseDTOS.add(courtCaseDTO);
         }
         Link selfLink = linkTo(methodOn(CourtCaseController.class).getAllCases()).withSelfRel();
         return CollectionModel.of(courtCaseDTOS, selfLink);
