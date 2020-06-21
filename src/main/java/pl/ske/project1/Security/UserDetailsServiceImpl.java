@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
         /*
-        loadUserByUsername wykonuje się TYLKO przy logowaniul
+        loadUserByUsername wykonuje się TYLKO przy logowaniu
         jeśli w kluczu są role to tu można je pobrać
          */
 

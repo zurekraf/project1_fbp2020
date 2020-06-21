@@ -24,7 +24,6 @@ import pl.ske.project1.service.IUserService;
 import static pl.ske.project1.Security.SecurityConstants.SIGN_UP_URL;
 
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true) //!!!!!!!!!!!!!!!!!!!!!!!!!!
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     private UserDetailsServiceImpl userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -49,18 +48,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
 //                .antMatchers(HttpMethod.GET, "/index").permitAll()
-//                .antMatchers(HttpMethod.GET, "/index2").permitAll()
-//                .antMatchers(HttpMethod.GET, "/api/products/all").permitAll()
-//                .antMatchers(HttpMethod.GET,"/api/defenders/*").permitAll() //now
-//                .antMatchers(HttpMethod.GET,"/api/defenders").permitAll() //now
-//                .antMatchers(HttpMethod.GET,"/cases/**").permitAll() //now
-//                .antMatchers(HttpMethod.GET,"/charges/**").permitAll() //test
-//                .antMatchers(HttpMethod.GET,"/api/charges").permitAll() //test
-//                .antMatchers(HttpMethod.GET,"/charges/").permitAll() //test
-//                .antMatchers(HttpMethod.GET,"api/charges/").permitAll() //test
-//                .antMatchers(HttpMethod.GET,"api/charges/**").permitAll() //test
-//                .antMatchers(HttpMethod.GET,"api/charges/*").permitAll() //test
-                //.anyRequest().authenticated()
+//                .antMatchers(HttpMethod.GET,"/api/defenders/*").permitAll()
+//                .antMatchers(HttpMethod.GET,"/cases/**").permitAll()
+//                .antMatchers(HttpMethod.GET,"/charges/**").permitAll()
+//                .anyRequest().authenticated()
                 .and()
 //                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilterBefore(new SecondCustomFilter(authenticationManager()), SecondCustomFilter.class)

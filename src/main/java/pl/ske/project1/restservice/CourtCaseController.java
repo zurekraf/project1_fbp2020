@@ -38,31 +38,32 @@ public class CourtCaseController {
     @Autowired
     private SentenceModelAssembler sentenceModelAssembler;
 
-    @PreAuthorize("hasAnyAuthority('JUDGE', 'PROSECUTOR', 'DEFENDER')")
+    @PreAuthorize("hasAnyAuthority('JUDGE', 'ADMIN', 'PROSECUTOR', 'DEFENDER')")
     @GetMapping(value = "", produces = "application/hal+json")
     public CollectionModel<CourtCaseDTO> getAllCases() {
         List<CourtCase> casesList = courtCaseService.findall();
         return courtCaseModelAssembler.toCollectionModel(casesList);
     }
 
-    @PreAuthorize("hasAnyAuthority('JUDGE', 'PROSECUTOR', 'DEFENDER')")
+    @PreAuthorize("hasAnyAuthority('JUDGE', 'ADMIN', 'PROSECUTOR', 'DEFENDER')")
     @GetMapping(value = "/{id}", produces = "application/hal+json")
     public CourtCaseDTO getCaseById(@PathVariable Long id) {
         Optional<CourtCase> courtCase = courtCaseService.findById(id);
         return courtCaseModelAssembler.toModel(courtCase.get());
     }
 
+    @PreAuthorize("hasAnyAuthority('JUDGE', 'ADMIN', 'PROSECUTOR', 'DEFENDER')")
     @GetMapping(value = "/{id}/charges", produces = "application/json")
     public CollectionModel<EntityModel<Charge>> getCaseCharges(@PathVariable Long id) {
         Optional<CourtCase> courtCase = courtCaseService.findById(id);
-
         Set<Charge> chargesSet = courtCase.get().getCharges();
         List<Charge> chargesList = new ArrayList<>(chargesSet);
-
         CollectionModel<EntityModel<Charge>> chargesCollectionModel = chargeModelAssembler.toCollectionModel(chargesList);
 
         return chargesCollectionModel;
     }
+
+    @PreAuthorize("hasAnyAuthority('JUDGE', 'ADMIN', 'PROSECUTOR', 'DEFENDER')")
     @GetMapping(value = "/{id}/hearings", produces = "application/json")
     public CollectionModel<HearingDTO> getCaseHearings(@PathVariable Long id) {
         Optional<CourtCase> courtCase = courtCaseService.findById(id);
@@ -71,13 +72,13 @@ public class CourtCaseController {
         return hearingsDTOCollectionModel;
     }
 
-    @PreAuthorize("hasAnyAuthority('JUDGE')")
+    @PreAuthorize("hasAnyAuthority('JUDGE', 'ADMIN')")
     @PostMapping("/{id}/hearings")
     public Hearing newHearing(@RequestBody Hearing newHearing) {
         return hearingService.createHearing(newHearing);
     }
 
-    @PreAuthorize("hasAnyAuthority('JUDGE')")
+    @PreAuthorize("hasAnyAuthority('JUDGE', 'ADMIN')")
     @PutMapping("/{id}/hearings/{hearingId}")
     public ResponseEntity<Hearing> replaceHearing(@RequestBody Hearing updatedHearing, @PathVariable Long hearingId) {
         Optional<Hearing> replacedProduct = hearingService.replaceHearing(updatedHearing, hearingId);
@@ -85,14 +86,13 @@ public class CourtCaseController {
         return ResponseEntity.of(replacedProduct);
     }
 
-    @PreAuthorize("hasAnyAuthority('PROSECUTOR')")
+    @PreAuthorize("hasAnyAuthority('PROSECUTOR', 'ADMIN')")
     @DeleteMapping("/{caseId}/charges/{chargeId}")
     public void deleteCharge(@PathVariable Long caseId, @PathVariable Long chargeId) {
         courtCaseService.deleteChargeById(caseId, chargeId);
     }
 
-    //jeszcze nie działa
-    @PreAuthorize("hasAnyAuthority('JUDGE')")
+    @PreAuthorize("hasAnyAuthority('JUDGE', 'ADMIN', 'PROSECUTOR', 'DEFENDER')")
     @GetMapping("/{caseId}/sentence")
     public EntityModel<Sentence> getCaseSentence(@PathVariable Long caseId) {
         Optional<CourtCase> courtCase = courtCaseService.findById(caseId);
@@ -100,31 +100,23 @@ public class CourtCaseController {
         return sentenceModelAssembler.toModel(sentence);
     }
 
-    @PreAuthorize("hasAnyAuthority('JUDGE')")
+    @PreAuthorize("hasAnyAuthority('JUDGE', 'ADMIN')")
     @PutMapping("/{caseId}/sentence")
     public CourtCaseDTO sentencing(@RequestBody Sentence sentence, @PathVariable Long caseId) {
-
-        //System.out.println("SENTENCING");
         CourtCase courtCase = courtCaseService.sentencing(caseId, sentence);
         return courtCaseModelAssembler.toModel(courtCase);
     }
 
-    //tylko prosecutor i judge
+    @PreAuthorize("hasAnyAuthority('JUDGE', 'ADMIN', 'PROSECUTOR')")
     @PostMapping("")
     public CourtCaseDTO addCourtCase(@RequestBody CourtCase courtCase) {
         CourtCase newCourtCase = courtCaseService.createCourtCase(courtCase);
         return courtCaseModelAssembler.toModel(newCourtCase);
     }
 
-    //tylko prosecutor
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROSECUTOR')")
     @PatchMapping("/{caseId}/charges")
     public Charge addCharge(@RequestBody Charge charge, @PathVariable Long caseId) {
-
-        //_____________
-        System.out.println(charge.getId());
-        System.out.println(charge.getTitle());
-        //_____________
-
         return courtCaseService.addCharge(caseId, charge);
     }
 }

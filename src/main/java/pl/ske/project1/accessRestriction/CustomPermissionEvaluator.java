@@ -19,31 +19,20 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
     @Override
     public boolean hasPermission(Authentication auth, Object targetDomainObject, Object permission) {
 
-        //System.out.println("custom permission evaluator");
-
+        /*
         SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ADMIN");
-//        if(auth.getAuthorities().contains(roleAdmin)) {
-//            System.out.println("TO admin");
-//        } else {
-//            System.out.println("to nie jest admin");
-//        }
+        if(auth.getAuthorities().contains(roleAdmin)) {
+
+        } else {
+
+        }
+         */
 
         ApplicationUser applicationUser = (ApplicationUser) auth.getPrincipal();
 
         Long targetId = (Long) targetDomainObject;
         String permissionStr = (String) permission;
 
-//        if(permissionStr.equals("getOrder")) {
-//            if(auth.getAuthorities().contains(roleAdmin) || userId.equals(targetId)) {
-//                System.out.println("_____dostep ok_____");
-//                return true;
-//            } else {
-//                System.out.println("____brak_dostepu_____");
-//                return false;
-//            }
-//        }
-        //tu można też sprawdzać inne permissionStr
-        //_____
         if(permissionStr.equals("updateDefender")) {
             Long userDefenderId = null;
             if(applicationUser.getDefender() != null) {
@@ -58,6 +47,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
                 return false;
             }
         }
+        //kolejny if może sprawdzać inny permissionStr
         return false;
     }
 

@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.ske.project1.DTO.DefenderDTO;
 import pl.ske.project1.HATEOAS.DefenderModelAssembler;
 import pl.ske.project1.entity.ApplicationUser;
 import pl.ske.project1.entity.Defender;
 import pl.ske.project1.service.DefenderService;
-import pl.ske.project1.service.UserService;
 
 import java.util.List;
 import java.util.Map;
@@ -36,7 +36,7 @@ public class DefenderController {
         return defenderModelAssembler.toCollectionModel(defenderList);
     }
 
-    // tylko dla admina
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping(value = "/{defenderId}/user")
     public Defender replaceUserAccount(@RequestBody ApplicationUser applicationUser, @PathVariable Long defenderId) {
         Optional<Defender> defender = defenderService.findById(defenderId);
@@ -44,7 +44,7 @@ public class DefenderController {
         return defenderService.createDefender(defender.get());
     }
 
-    @PostAuthorize("hasPermission(#id, 'updateDefender')")
+    @PreAuthorize("hasPermission(#id, 'updateDefender')")
     @PatchMapping(value = "/{id}")
     public ResponseEntity<Defender> updateDefender(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
         Optional<Defender> updatedDefender = defenderService.updateDefender(updates, id);

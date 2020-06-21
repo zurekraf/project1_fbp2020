@@ -7,13 +7,13 @@
 <body>
 <p>HELLO TEST</p>
 
-<tr th:each="product: ${products}" >
-<!--    <td th:text="${product.getName()}"> <br /> </td>-->
-    <td th:text="${product.getContent().toString()}"></td>
-    <td th:each="link: ${product.getLinks().toList()}"><a th:href="${link.getHref()}" th:text="${link.getRel()}"></a> </td>
-    <br>
-<!--    <p th:text="${product.getLinks()}"-->
-</tr>
+<!--<tr th:each="product: ${products}" >-->
+<!--&lt;!&ndash;    <td th:text="${product.getName()}"> <br /> </td>&ndash;&gt;-->
+<!--    <td th:text="${product.getContent().toString()}"></td>-->
+<!--    <td th:each="link: ${product.getLinks().toList()}"><a th:href="${link.getHref()}" th:text="${link.getRel()}"></a> </td>-->
+<!--    <br>-->
+<!--&lt;!&ndash;    <p th:text="${product.getLinks()}"&ndash;&gt;-->
+<!--</tr>-->
 
 </body>
 </html>

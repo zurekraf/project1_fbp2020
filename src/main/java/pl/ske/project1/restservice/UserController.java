@@ -1,6 +1,7 @@
 package pl.ske.project1.restservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import pl.ske.project1.entity.ApplicationUser;
@@ -16,7 +17,7 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    //tylko dla admina
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("")
     public List<ApplicationUser> getUsers() {
         List<ApplicationUser> userList = applicationUserRepository.findAll();
@@ -26,14 +27,11 @@ public class UserController {
     @PostMapping("/sign-up")
     public void signUp(@RequestBody ApplicationUser user) {
 
-        //dodać kod na duplikowany zasób
-
         ApplicationUser u = null;
         u = applicationUserRepository.findByUsername(user.getUsername());
         if(u == null) {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             applicationUserRepository.save(user);
         }
-        //else - taki user już istnieje - zwrócić odpowiedni kod
     }
 }

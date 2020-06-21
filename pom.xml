@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.0.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>pl.ske</groupId>
 	<artifactId>project1</artifactId>
@@ -39,7 +39,6 @@
 			<version>2.3.0.RELEASE</version>
 		</dependency>
 
-		<!--		nowe-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -73,12 +72,6 @@
 			<version>1.18.12</version>
 			<scope>provided</scope>
 		</dependency>
-
-
-
-
-
-		<!--		nowe-->
 
 		<dependency>
 			<groupId>mysql</groupId>

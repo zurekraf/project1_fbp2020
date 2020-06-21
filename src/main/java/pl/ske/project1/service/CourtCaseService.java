@@ -52,10 +52,6 @@ public class CourtCaseService {
     }
 
     public CourtCase sentencing(Long courtCaseId, Sentence sentence) {
-//        Sentence newSentence = sentenceService.createSentence(sentence);
-//        Optional<CourtCase> courtCase = courtCaseRepository.findById(courtCaseId);
-//        courtCase.get().setSentence(newSentence);
-//        return courtCaseRepository.save(courtCase.get());
         Optional<CourtCase> courtCase = courtCaseRepository.findById(courtCaseId);
         if(courtCase.get().getSentence() == null) {
             courtCase.get().setSentence(sentence);

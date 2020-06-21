@@ -3,6 +3,7 @@ package pl.ske.project1.restservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +23,14 @@ public class SentenceController {
     @Autowired
     private SentenceModelAssembler sentenceModelAssembler;
 
+    @PreAuthorize("hasAnyAuthority('JUDGE', 'ADMIN', 'PROSECUTOR', 'DEFENDER')")
     @GetMapping(value = "", produces = "application/hal+json")
     public CollectionModel<EntityModel<Sentence>> getAllSentences() {
         List<Sentence> sentencesList = sentenceService.findall();
         return sentenceModelAssembler.toCollectionModel(sentencesList);
     }
 
+    @PreAuthorize("hasAnyAuthority('JUDGE', 'ADMIN', 'PROSECUTOR', 'DEFENDER')")
     @GetMapping(value = "/{id}", produces = "application/hal+json")
     public EntityModel<Sentence> getSentenceById(@PathVariable Long id) {
         Optional<Sentence> sentence = sentenceService.findById(id);
