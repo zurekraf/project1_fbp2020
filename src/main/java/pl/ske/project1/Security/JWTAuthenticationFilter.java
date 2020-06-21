@@ -55,6 +55,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             } else {
                 //username+password jako json
                 creds = new ObjectMapper().readValue(req.getInputStream(), ApplicationUser.class);
+
+                //___
+                ApplicationUser apu = (ApplicationUser) creds;
+                System.out.println(apu.getId());
+                System.out.println(apu.getUsername());
+                System.out.println(apu.getPassword());
+                //___
             }
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword(), new ArrayList<>()));
         } catch (IOException e) {
@@ -83,6 +90,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOoo
 //        ((MyUser) auth.getPrincipal()).getTest();
         //_________
+
+        //_____
+        System.out.println("SuccesfullAuthentication");
+        //_____
 
         String token = JWT.create()
                 .withSubject(((User) auth.getPrincipal()).getUsername())

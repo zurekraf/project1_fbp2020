@@ -26,6 +26,7 @@ public class Defender {
 //    private ApplicationUser applicationUser;
     @OneToOne
     @JoinColumn(name = "applicationuser_id")
+    @JsonBackReference
     private ApplicationUser applicationUser;
 
     public long getId() {

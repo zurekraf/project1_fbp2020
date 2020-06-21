@@ -91,14 +91,15 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 }
 //                //_____
 //                UserDetails userDetails = new UserDetails()
-                ApplicationUser usr = userService.getByUsername(user);
-                UsernamePasswordAuthenticationToken u = new UsernamePasswordAuthenticationToken(usr, null, grantedAuths);
+                //ApplicationUser usr = userService.getByUsername(user);
+                //UsernamePasswordAuthenticationToken u = new UsernamePasswordAuthenticationToken(usr, null, grantedAuths);
 //                u.setDetails();
 //                //_____
 
                 //loooooooooooooooooooool credential to jest wczesniej password
 
-                return new UsernamePasswordAuthenticationToken(user, null, grantedAuths);
+//                return new UsernamePasswordAuthenticationToken(user, null, grantedAuths);
+                return new UsernamePasswordAuthenticationToken(applicationUser, null, grantedAuths);
                 //return new UsernamePasswordAuthenticationToken(usr, null, grantedAuths);
             }
             return null;
